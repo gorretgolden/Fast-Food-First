@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+   
+<div style="margin-bottom: 20px;">
+<div class= "products-search">
+    <p class="all-food">Chicken Burger</p>
+   
+</div>
+ 
+
+
+    <div class="card">
+        <img  class="products" src={{url_for('static', filename='/assets/chicken.png')}} alt="Avatar" >
+        <div class="name">
+            <p>Burger</p>
+            <p>USH 20000</p>
+            <p>Chicken Burger with vegetable salads served with chili</p>
+          <p style="background-color:#8EC039;width:100px;margin:auto;color:white">Add to cart</p>
+        </div>
+  </div>
+     
+{% endblock content %}

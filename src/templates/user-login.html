@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Login page{% endblock %}
+{% block content%}
+<!--search bar-->
+<br/>
+<br/>
+<div class="user-login-form">
+  <form >
+    <legend  >LOGIN</legend><br>
+    <!--Email-->
+      <div class="fields">
+          <label for="title" >Email:</label><br><br>
+        <input value="Enter your email address" type="email"  name="email" aria-describedby="emailHelp">
+      </div>
+      <br>
+    <!--Password-->
+      <div  class="fields">
+        <label for="title"  >Password:</label><br><br>
+        <input name="password" value="Enter your Password" type="password"   >
+      </div>
+      <br>
+        <!--Login button-->
+      <div style="padding;20px">
+  
+          <button type="submit" class="login-btn">Sign-In</button>
+    
+      </div>
+  
+    </form>
+</div>
+
+<br>
+<br>
+
+  <div class="text-to-auth">
+    <p><a href="{{ url_for('auth.register_user') }}" >Don't have an account? | Register here</a></p>
+  </div>
+  <br>
+  <br>
+{%endblock%}

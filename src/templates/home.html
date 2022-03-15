@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+   
+<section>
+    <div >
+        <img style="width:100%;height:450px;margin-top:-16px;" src={{url_for('static', filename='/assets/main.jpg')}} alt="Avatar" >
+        
+      </div>
+
+
+</section>
+
+<main>
+
+    <h2>Popular Food</h2>
+    <div class="favourites">
+     <div class="card">
+         <img  class="products" src={{url_for('static', filename='/assets/burger.png')}} alt="Avatar" >
+         <div class="name">
+      <p>Burgers</p>
+         </div>
+       </div>
+    
+       <div class="card">
+         <img  class="products" src={{url_for('static', filename='/assets/chicken.png')}} alt="Avatar" >
+         <div class="name">
+        <p>Chicken</p>
+         </div>
+       </div>
+       <div class="card">
+         <img  class="products" src={{url_for('static', filename='/assets/pork.jpeg')}} alt="Avatar" >
+         <div class="name">
+        <p> Pork </p>
+         </div>
+       </div>
+       <div class="card">
+         <img  class="products" src={{url_for('static', filename='/assets/beef.png')}} alt="Avatar" >
+         <div class="name">
+           <p>Beef</P>
+         </div>
+ 
+       </div>
+ 
+        <div>
+     
+ </main> 
+
+ <section>
+   <div class="customers">
+     <h2>Why Customer Choose Us</h2>
+     <p>We provide quality food at your order We provide quality food at your orderWe provide quality food at your order  We provide quality food at your order
+       <br>We provide quality food at your order We provide quality food at your order We provide quality food at your order
+       <br> We provide quality food at your order We provide quality food at your order We provide quality food at your order
+       <br>We provide quality food at your order 
+     </p>
+     <br>
+     <p>We provide quality food at your order We provide quality food at your orderWe provide quality food at your order  We provide quality food at your order
+      <br>We provide quality food at your order We provide quality food at your order We provide quality food at your order
+      <br> We provide quality food at your order We provide quality food at your order We provide quality food at your order
+      <br>We provide quality food at your order 
+    </p>
+   </div>
+ </section>
+
+{% endblock content %}

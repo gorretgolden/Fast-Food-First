@@ -1,0 +1,77 @@
+
+{% extends 'base.html' %}
+{% block title %}Resister page{% endblock %}
+{% block content%}
+
+<div class="user-sign-up-form ">
+  <form action="action_page.php">
+    <div class="container">
+      <h2>Register Form</h2>
+      <p>Please fill in this form to create an account.</p>
+      <hr />
+      <!--Username-->
+      <div style=" margin-top: 20px; margin-bottom: 20px;">
+        <label for="email"><b>Name:</b></label>
+        <input
+          type="text"
+          placeholder="Enter name"
+          name="name"
+          id="email"
+          required
+        />
+      </div>
+      <br>
+      <!--Email-->
+      <div>
+        <label for="email"><b>Email:</b></label>
+        <input
+          type="text"
+          placeholder="Enter Email"
+          name="email"
+          id="email"
+          required
+        />
+      </div>
+      <br>
+      <!--Password 1-->
+      <div>
+        <label for="password"><b>Password:</b></label>
+        <input
+          type="password"
+          placeholder="Enter your Password"
+          name="password"
+          id="password"
+          required
+        />
+      </div>
+      <br>
+      <!--Password 2-->
+      <div>
+        <label for="psw-repeat"><b>Repeat Password:</b></label>
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          name="password-repeat"
+          id="password-repeat"
+          required
+        />
+        <br>
+        <hr />
+      </div>
+   <!--terms and policies-->
+      <div class="policies">
+     
+      </div>
+    
+    <button type="submit" class="register-btn">Register</button>
+  
+  </div>
+  </form>
+  
+</div>
+
+<div class="text-to-auth">
+  <p><a href="{{ url_for('auth.login_user') }}">Already have an account? |  Login</a>.</p>
+</div>
+
+{%endblock%}

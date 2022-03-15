@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="admin-wrapper">
+  <div class="admin-side-bar">
+
+    <ul >
+  
+         
+          <li><a href="{{ url_for('menu.all_menu_products') }}">Products</a></li>
+          <li><a <a href="{{ url_for('orders.get_all_orders') }}">Orders</a></li>
+          <li><a>Settings</a></li>
+     
+      <li><a href="{{ url_for('users.get_all_users') }}">Users</a></li>
+      <li><a href="{{ url_for('users.get_user_account') }}">Account</a></li>
+      <li><a>Riders</a></li>
+      <li><button style="margin-left:10px;margin-bottom:10px;border-radius:20px;background-color: #82B440;border: none;margin-top: 20px;width: 100px; height: 30px" ><span style="color:white;font-size:15px">Logout</span></button> </li>
+    </ul> 
+  </div>
+<div class="admin-create-food ">
+  <form >
+    <legend  >Create New Food Item</legend><br>
+    <!--Food Name-->
+      <div class="fields">
+          <label for="title" >Food Name:</label><br>
+        <input value="Enter food name" type="text"  name="food_name" >
+      </div>
+    <!--Description-->
+      <div  class="fields">
+        <label for="description"  >Food Description:</label><br>
+        <input name="description" value="Enter food description" type="text"   >
+      </div>
+      <!--Price-->
+      <div  class="fields">
+        <label for="price"  >Food Price:</label><br>
+        <input name="price" value="Enter food price" type="number"   >
+      </div>
+
+       <!--Quantity-->
+       <div  class="fields">
+        <label for="qty"  >Food Quantity:</label><br>
+        <input name="quantity" value="Enter food quantity" type="number"   >
+      </div>
+      <br>
+        <!--Login button-->
+      <div style="padding;20px">
+  
+          <button type="submit" class="login-btn">Create</button>
+    
+      </div>
+  
+    </form>
+     
+ 
+  
+</div>
+
+
+
+
+  {%endblock%}

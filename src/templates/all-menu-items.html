@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+   
+
+<div class= "products-search">
+    <p class="all-food">All Food Items</p>
+    <p class="all-food"><a a href="{{ url_for('orders.get_all_orders') }}"  >Your Orders</a></p>
+    <input value="Search for food"/>
+</div>
+ 
+
+ <div class="container-products">
+    <div class="product">
+        <img   src={{url_for('static', filename='/assets/chicken-burger.jpg')}} alt="Avatar" >
+        <div class="name">
+            <p>Chicken Burger</p>
+            <p>USH 20000</p>
+          <p ><a href="{{ url_for('menu.single_menu_item') }}"><span class="txt-to-cart">View Item</span></a></p>
+        </div>
+      </div>
+
+      <div class="product">
+        <img   src={{url_for('static', filename='/assets/cake.jpg')}} alt="Avatar" >
+        <div class="name">
+            <p>Frozen Cake</p>
+            <p>USH 15000</p>
+          <p ><a href="{{ url_for('menu.single_menu_item') }}"><span class="txt-to-cart">View Item</span></a></p>
+        </div>
+      </div>
+      <div class="product">
+        <img   src={{url_for('static', filename='/assets/kachumbali.jpg')}} alt="Avatar" >
+        <div class="name">
+            <p>Kachumbali</p>
+            <p>USH 10000</p>
+          <p><a href="{{ url_for('menu.single_menu_item') }}"><span class="txt-to-cart">View Item</span></a></p>
+        </div>
+      </div>
+      <div class="product">
+        <img   src={{url_for('static', filename='/assets/chicken-pizza.jpg')}} alt="Avatar" >
+        <div class="name">
+            <p>Chicken Pizza</p>
+            <p>USH 25000</p>
+          <p><a href="{{ url_for('menu.single_menu_item') }}"><span class="txt-to-cart">View Item</span></a></p>
+        </div>
+      </div>
+      <div class="product">
+        <img   src={{url_for('static', filename='/assets/homeimg.jpg')}} alt="Avatar" >
+        <div class="name">
+            <p>Burger</p>
+            <p>USH 20000</p>
+          <p><a href="{{ url_for('menu.single_menu_item') }}"><span class="txt-to-cart">View Item</span></a></p>
+        </div>
+      </div>
+      <div class="product">
+        <img   src={{url_for('static', filename='/assets/homeimg.jpg')}} alt="Avatar" >
+        <div class="name">
+            <p>Burger</p>
+            <p>USH 20000</p>
+          <p><a href="{{ url_for('menu.single_menu_item') }}"><span class="txt-to-cart">View Item</span></a></p>
+        </div>
+      </div>
+      
+    </div>
+
+{% endblock content %}

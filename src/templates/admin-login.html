@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Admin Login page{% endblock %}
+{% block content%}
+<!--search bar-->
+<br/>
+
+<div class="user-login">
+  <form >
+    <legend  >LOGIN</legend><br>
+    <!--Email-->
+      <div class="fields">
+          <label for="title" >Username:</label><br>
+        <input value="Enter your username" type="text"  name="name" aria-describedby="emailHelp">
+      </div>
+    <!--Password-->
+      <div  class="fields">
+        <label for="title"  >Password:</label><br>
+        <input name="password" value="Enter your Password" type="password"   >
+      </div>
+      <br>
+        <!--Login button-->
+      <div style="padding;20px">
+  
+          <button type="submit" class="login-btn">Sign-In</button>
+    
+      </div>
+  
+    </form>
+</div>
+
+
+
+  
+{%endblock%}
