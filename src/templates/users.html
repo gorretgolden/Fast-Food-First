@@ -7,7 +7,7 @@
 </diV>
    
 <!--looping into the users table-->
-{% for user in users %}
+
 <p></p>
 
 <div >
@@ -22,6 +22,7 @@
         <th>Update</th>
      
       </tr>
+      {% for user in users %}
       <tr>
         <td>{{user.id}}</td>
         <td>{{user.username }} </td>
@@ -32,9 +33,9 @@
         <td><button  class="btn-table-update" >Update</button></td>
   
       </tr>
-   
+      {%endfor%}
       
     </table>
   </div>
-  {%endfor%}
+
 {% endblock content %}

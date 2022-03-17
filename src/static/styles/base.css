@@ -393,3 +393,41 @@
             margin: 5px;
             background-color: #f3f3f3
         }
+        
+        .table {
+            margin-bottom: 250px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        body {
+            margin: 0;
+        }
+        
+        .table th,
+        .table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .table th {
+            background-color: #8EC039;
+            color: white
+        }
+        
+        .table tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        
+        @media(max-width:500px) {
+            .table thead {
+                display: none;
+            }
+            .table tbody,
+            .table tr,
+            .table td {
+                display: block;
+                width: 100%;
+            }
+        }
