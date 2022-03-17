@@ -1,13 +1,13 @@
 import os
 from flask import Flask
-
+from flask_jwt_extended import JWTManager
 
 #Application Factory Function
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     
-    
+
     if test_config is None:
         # load the instance config, if it exists, when not testing
        app.config.from_mapping(
@@ -32,6 +32,6 @@ def create_app(test_config=None):
     app.register_blueprint(main)    
     app.register_blueprint(orders)
     app.register_blueprint(auth)
-
+    JWTManager(app)
     return app
 

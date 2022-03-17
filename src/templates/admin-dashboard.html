@@ -18,7 +18,7 @@
     </ul> 
   </div>
 <div class="admin-create-food ">
-  <form >
+  <form method="POST" action="{{url_for('menu.new_menu_item')}}">
     <legend  >Create New Food Item</legend><br>
     <!--Food Name-->
       <div class="fields">

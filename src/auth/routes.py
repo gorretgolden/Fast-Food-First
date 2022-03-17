@@ -3,7 +3,7 @@ from flask import redirect, render_template, request, Blueprint, url_for
 from flask import Blueprint, flash, jsonify, render_template, request
 import validators
 from werkzeug.security import check_password_hash,generate_password_hash
-from flask_jwt_extended import create_access_token,create_refresh_token,jwt_required,get_jwt_identity
+from flask_jwt_extended import unset_jwt_cookies, create_access_token,create_refresh_token,jwt_required,get_jwt_identity
 import psycopg2.extras
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
@@ -21,16 +21,21 @@ def register_user():
         password2 = request.form['password2']
         
         
-      #   #checking if email exists
-      #   email_exists = cur.execute("SELECT email FROM users WHERE email = %s", (email))
-      #   if email_exists:
-      #         flash('Email address already exists!')
+        #checking if email exists
+        email_exists = cur.execute("SELECT email FROM users WHERE email = %(email)s", {'email':email})
+        if email_exists:
+              flash('Email address already exists!')
           
-      #    #checking if username exists
-      #   username_exists = cur.execute("SELECT username FROM users WHERE username = %s", (username))
-      #   if username_exists:
-      #         flash('Username already in use!')      
-              
+         #checking if username exists
+        username_exists = cur.execute("SELECT username FROM users WHERE username = %(username)s", {'username':username})
+        if username_exists:
+              flash('Username already in use!')      
+          
+          
+       #checking if phonenumber exists
+        phone_number_exists = cur.execute("SELECT phone_number FROM users WHERE phone_number = %(phone_number)s", {'phone_number':phone_number})
+        if phone_number_exists:
+              flash('Phone number already in use!')     
         #do passwords match
         if password1!=password2:
               flash("Passwords don\t match!",'error')
@@ -65,7 +70,7 @@ def login_user():
           password = request.form['user_password']
             
           #check if email exits
-          cur.execute('SELECT * FROM users WHERE email = %s',(email))
+          cur.execute('SELECT * FROM users WHERE email = %(email)s',{'email':email})
           user = cur.fetchone()
           if user:
                 #check if userpassword matches the sha password in db
@@ -77,6 +82,7 @@ def login_user():
                       refresh_token = create_refresh_token(identity=user['id'])
                       print(access_token,refresh_token)
                       #redirect the user to home page for succesful login
+                      flash('You logged in successfully!','success')
                       return redirect(url_for('main.home'))
           else:
               flash("Incorrect credentials!",'error')
@@ -85,6 +91,17 @@ def login_user():
             
       return render_template('user-login.html')  
 
+
+#logout endpoint
+@auth.route('/logout')
+def logout_user():
+    response = jsonify({"msg": "logged out successfully"})
+    unset_jwt_cookies(response)
+    print(response)
+    flash('Your are logged out')
+    return redirect(url_for('auth.login_user'))
+    
+    
 
 #refresh token endpoint
 @auth.route('/token/refresh')

@@ -27,11 +27,12 @@ def new_menu_item():
         food_description = request.form['food_description']
         food_price = request.form['food_price']
         image_url = request.form['image_url']
-        food_stock_quantity = request.form['food_stock__quantity']
+        food_stock_quantity = request.form['food_stock_quantity']
        
         #inserting values into the menu_table
         cur.execute("INSERT INTO menu_items (food_name,food_description,food_price,image_url,food_stock_quantity) VALUES (%s,%s,%s,%s,%s)", (food_name,food_description,food_price,image_url,food_stock_quantity))
         conn.commit()
+     
         flash("New menu item added successfully!!",'success')
         return redirect(url_for('admin.admin_dashboard'))
    
@@ -42,7 +43,7 @@ def new_menu_item():
 def edit_menu_items(id):
    
     #obtaining menu id
-    cur.execute("SELECT * FROM menu_items WHERE id = %s",(id))
+    cur.execute("SELECT * FROM menu_items WHERE id = %(id)s", {'id':id})
     data = cur.fetchall()
     cur.close()
     print(data['id'])
