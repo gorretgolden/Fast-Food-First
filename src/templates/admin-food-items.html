@@ -7,9 +7,14 @@
  
 </diV>
    
+  <!--looping into the menu items-->
+  {% for menu_item in menu_items %}
+  <p>{{ menu_item.food_name }}</p>
+  {%endfor%}
 
 
 <div class="users-table">
+
     <table>
       <tr>
         <th>Food  ID</th>

@@ -92,6 +92,9 @@ def login_user():
       return render_template('user-login.html')  
 
 
+
+
+
 #logout endpoint
 @auth.route('/logout')
 def logout_user():

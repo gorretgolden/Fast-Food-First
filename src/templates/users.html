@@ -2,76 +2,39 @@
 {% block content %}
 <div  style="margin-bottom:50px;margin-top:50px;margin-left:500px;display:flex;flex-direction:row;align-content:center">
     <p>CUSTOMERS</p>
-    <p style="background-color:#8EC039"><a href="{{ url_for('customers.register_user') }}">Create New Customer</a></p>
+   
  
 </diV>
    
+<!--looping into the users table-->
+{% for user in users %}
+<p></p>
 
-
-<div class="users-table">
-    <table>
+<div >
+    <table class="table">
       <tr>
         <th>Customer  ID</th>
         <th>Customer  Name</th>
         <th>Customer Email</th>
         <th>Customer Contact</th>
+        <th>Date Created</th>
         <th>Delete</th>
         <th>Update</th>
      
       </tr>
       <tr>
-        <td>1 </td>
-        <td>Nabatanzi Gorret </td>
-        <td>nabatanzigorret143@gmail.com</td>
-        <td>0751547654</td>
+        <td>{{user.id}}</td>
+        <td>{{user.username }} </td>
+        <td>{{user.email }}</td>
+        <td>{{user.phone_number }}</td>
+        <td>{{user.date_created}}</td>
         <td><button  class="btn-table-delete">Delete</button>
-          <td>
-            <div class="admin-tb">
-            </div>
-          <form method="post" >
-          
-          <button  class="btn-table-update" >Update</button>
-          </form>
-         
-          </td>
+        <td><button  class="btn-table-update" >Update</button></td>
   
       </tr>
-      <tr>
-        <td>2 </td>
-        <td>Ssemakula Kevin </td>
-        <td>nabatanzigorret143@gmail.com</td>
-        <td>0751547654</td>
-        <td><button  class="btn-table-delete">Delete</button>
-        <td>
-          <div class="admin-tb">
-          </div>
-        <form method="post" >
-        
-        <button  class="btn-table-update">Update</button>
-        </form>
-       
-        </td>
-        </tr>
-    
-        <tr>
-            <td>3 </td>
-            <td>Ssemakula Kevin </td>
-            <td>nabatanzigorret143@gmail.com</td>
-            <td>0751547654</td>
-            <td><button  class="btn-table-delete">Delete</button>
-            <td>
-              <div class="admin-tb">
-              </div>
-            <form method="post" >
-            
-            <button  class="btn-table-update">Update</button>
-            </form>
-           
-            </td>
-            </tr>
-     
+   
       
     </table>
   </div>
-     
+  {%endfor%}
 {% endblock content %}
