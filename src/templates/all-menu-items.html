@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
    
-
+{%for item in items%}
+<p>{{item.food_name}}</p>
+{%endfor%}
 <div class= "products-search">
     <p class="all-food">All Food Items</p>
     <p class="all-food"><a a href="{{ url_for('orders.get_all_orders') }}"  >Your Orders</a></p>

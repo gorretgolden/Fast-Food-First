@@ -1,65 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-
 <div  style="margin-bottom:50px;margin-top:50px;margin-left:500px;display:flex;flex-direction:row;align-content:center">
-    <p>FOOD ITEMS</p>
-    <p style="background-color:#8EC039"><a href="{{ url_for('Foods.register_user') }}">Create New Food</a></p>
+    <p>FOOD PRODUCTS</p>
+   
  
 </diV>
    
-  <!--looping into the menu items-->
-  {% for menu_item in menu_items %}
-  <p>{{ menu_item.food_name }}</p>
-  {%endfor%}
+<!--looping into the users table-->
 
+<p></p>
 
-<div class="users-table">
-
-    <table>
+<div >
+    <table class="table">
       <tr>
-        <th>Food  ID</th>
-        <th>Food  Name</th>
+        <th>Food ID</th>
+        <th>Food Name</th>
         <th>Food Description</th>
         <th>Food Price</th>
-        <th>Food Quantity</th>
-        <th>Food Image</th>
+       <th>Food Stock Quantity</th>
+        <!--<th>Food Image Url</th>-->
+        <th>Date Created</th>
+        <th>Edit</th>
+        <th>Delete</th>
+     
      
       </tr>
+      {% for item in items %}
       <tr>
-        <td>1 </td>
-        <td>Chicken Burger </td>
-        <td>Chicken burger with salads</td>
-        <td>20000</td>
-        <td>20</button>
-          <td>
-            <img style="width:100%;height:450px;margin-top:-16px;" src={{url_for('static', filename='/assets/main.jpg')}} alt="Avatar" >
-          </td>
+        <td>{{item.id}}</td>
+        <td>{{item.food_name}} </td>
+        <td>{{item.food_description}}</td>
+        <td>{{item.food_price}}</td>
+        <td>{{item.food_stock_quantity}}</td>
+       <!-- <td>{{item.image_url}}</td>-->
+        <td>{{item.date_created}}</td>
+        <td><button  ><i class="fa fa-pencil-square-o"></i></button>
+        <td><button class="btn-table-delete" ><i  class="fa fa-trash"></i></button>
+       <!-- <td><button  class="btn-table-update" ><i class="fa fa-refresh"></i></button></td>-->
   
       </tr>
-      <tr>
-        <td>1 </td>
-        <td>Chicken Burger </td>
-        <td>Chicken burger with salads</td>
-        <td>20000</td>
-        <td>20</button>
-          <td>
-            <img style="width:100%;height:450px;margin-top:-16px;" src={{url_for('static', filename='/assets/main.jpg')}} alt="Avatar" >
-          </td>
-  
-      </tr>
-      <tr>
-        <td>1 </td>
-        <td>Chicken Burger </td>
-        <td>Chicken burger with salads</td>
-        <td>20000</td>
-        <td>20</button>
-          <td>
-            <img style="width:100%;height:450px;margin-top:-16px;" src={{url_for('static', filename='/assets/main.jpg')}} alt="Avatar" >
-          </td>
-  
-      </tr>
-
+      {%endfor%}
       
     </table>
   </div>
+
 {% endblock content %}

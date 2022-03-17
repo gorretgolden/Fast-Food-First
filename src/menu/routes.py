@@ -10,9 +10,9 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 def all_menu_products():
     #fetching all products
     cur.execute("SELECT * FROM menu_items")
-    menu_items = cur.fetchall()
+    items = cur.fetchall()
 
-    return render_template('all-menu-items.html', menu_items= menu_items)
+    return render_template('all-menu-items.html', items = items)
 
 @menu.route("/single", methods=['GET'])
 def single_menu_item():
