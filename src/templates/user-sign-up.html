@@ -4,31 +4,56 @@
 {% block content%}
 
 <div class="user-sign-up-form ">
-  <form action="action_page.php">
+  <form action="{{url_for('auth.register_user')}}" method="POST">
+   
     <div class="container">
       <h2>Register Form</h2>
       <p>Please fill in this form to create an account.</p>
       <hr />
       <!--Username-->
       <div style=" margin-top: 20px; margin-bottom: 20px;">
-        <label for="email"><b>Name:</b></label>
+        <label for="email"><b>UserName:</b></label>
         <input
           type="text"
           placeholder="Enter name"
-          name="name"
-          id="email"
+          name="username"
+          id="name"
           required
         />
       </div>
-      <br>
+ 
       <!--Email-->
       <div>
         <label for="email"><b>Email:</b></label>
         <input
-          type="text"
+          type="email"
           placeholder="Enter Email"
           name="email"
           id="email"
+          required
+        />
+      </div>
+      <br/>
+       <!--Phone Number-->
+       <div>
+        <label for="contact"><b>Phone Number:</b></label>
+        <input
+          type="number"
+          placeholder="Enter phone number"
+          name="phone_number"
+          id="phone"
+          required
+        />
+      </div>
+      
+       <!--User Address-->
+       <div>
+        <label for="address"><b>User Address:</b></label>
+        <input
+          type="text"
+          placeholder="Enter your address"
+          name="user_address"
+          id="address"
           required
         />
       </div>
@@ -39,7 +64,7 @@
         <input
           type="password"
           placeholder="Enter your Password"
-          name="password"
+          name="user_password"
           id="password"
           required
         />
@@ -51,7 +76,7 @@
         <input
           type="password"
           placeholder="Repeat Password"
-          name="password-repeat"
+          name="password2"
           id="password-repeat"
           required
         />
@@ -67,11 +92,13 @@
   
   </div>
   </form>
-  
+  <br/>
 </div>
 
 <div class="text-to-auth">
   <p><a href="{{ url_for('auth.login_user') }}">Already have an account? |  Login</a>.</p>
 </div>
+<br/>
+<br/>
 
 {%endblock%}

@@ -3,7 +3,7 @@ from flask import redirect, render_template, request, Blueprint, url_for
 from flask import Blueprint, flash, jsonify, render_template, request
 import validators
 from werkzeug.security import check_password_hash,generate_password_hash
-from flask_jwt_extended import create_access_token,create_refresh_token
+from flask_jwt_extended import create_access_token,create_refresh_token,jwt_required,get_jwt_identity
 import psycopg2.extras
 
 auth = Blueprint('auth', __name__, url_prefix='/auth')
@@ -21,8 +21,16 @@ def register_user():
         password2 = request.form['password2']
         
         
-        #checking if email exists
-        # email_exists = cur.execute("SELECT * FROM users WHERE email =email ")
+      #   #checking if email exists
+      #   email_exists = cur.execute("SELECT email FROM users WHERE email = %s", (email))
+      #   if email_exists:
+      #         flash('Email address already exists!')
+          
+      #    #checking if username exists
+      #   username_exists = cur.execute("SELECT username FROM users WHERE username = %s", (username))
+      #   if username_exists:
+      #         flash('Username already in use!')      
+              
         #do passwords match
         if password1!=password2:
               flash("Passwords don\t match!",'error')
@@ -51,13 +59,42 @@ def register_user():
 
 @auth.route('/login', methods= ['POST','GET'])
 def login_user():
-      # if request.method == "POST":
-      #     email = request.form['email']
-      #     password = request.form['password']
-      #     # user = cur.execute('SELECT FROM users WHERE email = '%s')
+      
+      if request.method == "POST" and "email" in request.form and "user_password" in request.form:
+          email = request.form['email']
+          password = request.form['user_password']
+            
+          #check if email exits
+          cur.execute('SELECT * FROM users WHERE email = %s',(email))
+          user = cur.fetchone()
+          if user:
+                #check if userpassword matches the sha password in db
+                password_check = check_password_hash(user['user_password'],password)
+                print(password_check)
+                if password_check:
+                      #create refresh and acces tokens
+                      access_token = create_access_token(identity=user['id'])
+                      refresh_token = create_refresh_token(identity=user['id'])
+                      print(access_token,refresh_token)
+                      #redirect the user to home page for succesful login
+                      return redirect(url_for('main.home'))
+          else:
+              flash("Incorrect credentials!",'error')
+
        
             
-  return render_template('user-login.html')  
+      return render_template('user-login.html')  
+
+
+#refresh token endpoint
+@auth.route('/token/refresh')
+@jwt_required(refresh=True)
+def refresh_users_token():
+      identity = get_jwt_identity()
+      access = create_access_token(identity=identity)
+      return jsonify({
+            'access':access
+      })
 
 
 

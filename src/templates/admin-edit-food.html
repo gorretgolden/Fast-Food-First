@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Edit Food{% endblock %}
+{% block content%}
+
+
+<div class="admin-create-food ">
+    <form >
+      <legend>Edit Food Item</legend><br>
+      <!--Food Name-->
+        <div class="fields">
+            <label for="title" >Food Name:</label><br>
+          <input value={{food.food_name}} type="text"  name="food_name" >
+        </div>
+      <!--Description-->
+        <div  class="fields">
+          <label for="description"  >Food Description:</label><br>
+          <input name="food_description"  value={{food.food_description}} type="text"   >
+        </div>
+        <!--Price-->
+        <div  class="fields">
+          <label for="price"  >Food Price:</label><br>
+          <input name="food_price"  value={{food.food_price}} type="number"   >
+        </div>
+  
+         <!--Quantity-->
+         <div  class="fields">
+          <label for="qty"  >Food Quantity:</label><br>
+          <input name="food_stock_quantity"  value={{food.food_stock_quantity}} type="text"   >
+        </div>
+         <!--Image Url-->
+         <div  class="fields">
+          <label for="url"  >Food Image Url:</label><br>
+          <input name="image_url"  value={{food.image_url}}type="text"   >
+        </div>
+        <br>
+          <!--Login button-->
+        <div style="padding;20px">
+    
+            <button type="submit" class="login-btn">Create</button>
+      
+        </div>
+    
+      </form>
+       
+   
+    
+  </div>
+
+
+
+
+  
+{%endblock%}

@@ -11,7 +11,8 @@ def create_app(test_config=None):
     if test_config is None:
         # load the instance config, if it exists, when not testing
        app.config.from_mapping(
-        JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+        JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY'),
+        SECRET_KEY = os.environ.get('SECRET_KEY')
     )
     else:
         # load the test config if passed in

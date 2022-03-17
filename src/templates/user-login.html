@@ -5,7 +5,7 @@
 <br/>
 <br/>
 <div class="user-login-form">
-  <form >
+  <form method="POST" action="{{url_for('auth.login_user')}}" >
     <legend  >LOGIN</legend><br>
     <!--Email-->
       <div class="fields">
@@ -16,7 +16,7 @@
     <!--Password-->
       <div  class="fields">
         <label for="title"  >Password:</label><br><br>
-        <input name="password" value="Enter your Password" type="password"   >
+        <input name="user_password" value="Enter your Password" type="password"   >
       </div>
       <br>
         <!--Login button-->
