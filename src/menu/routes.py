@@ -14,10 +14,12 @@ def all_menu_products():
 
     return render_template('all-menu-items.html', items = items)
 
-@menu.route("/single", methods=['GET'])
-def single_menu_item():
+@menu.route("/<int:id>", methods=['GET'])
+def single_menu_item(id):
+    cur.execute('SELECT * FROM menu_items WHERE id = %(id)s',{'id':id})
+    single_item = cur.fetchone()
    
-    return render_template('single-product.html')
+    return render_template('single-product.html',single_item=single_item)
 
 #creating menu-item
 @menu.route("/create", methods=['GET',"POST"])
@@ -38,7 +40,7 @@ def new_menu_item():
    
     return render_template('admin-dashboard.html')
 
-#editin menu-item
+#editing menu-item
 @menu.route("/edit/<id>", methods=['POST','GET'])
 def edit_menu_items(id):
    
