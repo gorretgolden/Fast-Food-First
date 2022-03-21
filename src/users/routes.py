@@ -14,6 +14,14 @@ def all_users():
     cur.execute("SELECT * FROM users")
     users = cur.fetchall()
     return render_template('users.html', users=users)
+    # return jsonify({'users':users})
+ 
+  
+#getting a specific user 
+@users.route('/<int:id>', methods= ['GET'])
+def get_user(id):
+  user = cur.execute('SELECT * FROM users WHERE id = %(id)s',{'id':id})
+  return jsonify({'user':user})
  
  
 #place an order for food and view orders  

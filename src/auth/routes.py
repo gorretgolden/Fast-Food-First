@@ -84,12 +84,15 @@ def login_user():
                       #redirect the user to home page for succesful login
                       flash('You logged in successfully!','success')
                       return redirect(url_for('main.home'))
-          else:
-              flash("Incorrect credentials!",'error')
+                
+                
+                flash('Incorrect credentials please try again','error')
+          
+            
 
        
             
-      return render_template('user-login.html')  
+      return render_template('user-login.html',user=user)  
 
 
 

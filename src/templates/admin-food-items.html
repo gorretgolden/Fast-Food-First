@@ -18,6 +18,7 @@
         <th>Food Description</th>
         <th>Food Price</th>
        <th>Food Stock Quantity</th>
+       <th>Food Image</th>
         <!--<th>Food Image Url</th>-->
         <th>Date Created</th>
         <th>Edit</th>
@@ -32,10 +33,10 @@
         <td>{{item.food_description}}</td>
         <td>{{item.food_price}}</td>
         <td>{{item.food_stock_quantity}}</td>
-       <!-- <td>{{item.image_url}}</td>-->
+        <td><img  class="admin-food-image" src={{item.image_url}} alt="food-image" ></td>
         <td>{{item.date_created}}</td>
-        <td><button  ><i class="fa fa-pencil-square-o"></i></button>
-        <td><button class="btn-table-delete" ><i  class="fa fa-trash"></i></button>
+        <td><button  ><a href= "{{url_for('menu.edit_menu_items',id=item.id)}}"><i class="fa fa-pencil-square-o"></i></a></button>
+        <td><button class="btn-table-delete" ><a href={{ url_for('menu.delete_menu_item',id=item.id) }}><i  class="fa fa-trash"></i></a></button>
        <!-- <td><button  class="btn-table-update" ><i class="fa fa-refresh"></i></button></td>-->
   
       </tr>

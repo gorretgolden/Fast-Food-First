@@ -7,11 +7,12 @@
 
 
     <div class="card">
-        <img  class="products" src={{url_for('static', filename='/assets/chicken.png')}} alt="Avatar" >
+        <img  class="products" src={{item.image_url}} alt="food-image" >
         <div class="name">
-            <p>Burger</p>
-            <p>USH 20000</p>
-            <p>Chicken Burger with vegetable salads served with chili</p>
+            <p>{{item.food_name}}</p>
+            <p>USH {{item.food_price}}</p>
+            <p>{{item.food_description}}</p>
+            <br>
           <p style="background-color:#8EC039;width:100px;margin:auto;color:white">Add to cart</p>
         </div>
   </div>
