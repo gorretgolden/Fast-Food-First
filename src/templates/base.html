@@ -9,7 +9,7 @@
     <meta content="" name="keywords">
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles/base.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    
 </head>
 
 <body>
@@ -26,7 +26,7 @@
         <li><a class="active" href="{{ url_for('main.home') }}"><span style="color:#8EC039">Home</span></a></li>
         <li><a href="{{ url_for('menu.all_menu_products') }}">Menu</a></li>
         <li><a href="{{ url_for('admin.admin_dashboard') }}">Admin</a></li>
-        <li><a href="{{ url_for('main.menu_cart') }}">Cart</a></li>
+        <li class="cartNav"><a href="{{ url_for('main.menu_cart') }}">Cart</a></li>
    
     <li><a href="{{ url_for('auth.logout_user') }}">Login</a></li>
 
@@ -87,8 +87,10 @@
     <!-- Footer -->
 
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://kit.fontawesome.com/0000000000.js" crossorigin="anonymous"></script>
-  
+   <!-- <script src="https://kit.fontawesome.com/0000000000.js" crossorigin="anonymous"></script>-->
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+   <script type="text/javascript" src="{{url_for('static', filename="shoppingCart.js")}}"></script>
 </body>
 
 </html>

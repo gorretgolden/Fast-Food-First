@@ -13,12 +13,16 @@
     {%for item in items%}
 
       <div class="product">
-      <img   src={{item.image_url}} alt="Avatar" >
-      <div class="name">
+      
+      <div class="card-body">
+        <img   src={{item.image_url}} alt="Avatar" >
         <p>{{item.food_name}}</p>
         <p>{{item.food_price}}</p>
-      <p ><a href="{{url_for('menu.view_menu_item',id=item.id)}}" ><span class="txt-to-cart">View Item</span></a></p>
-     </div>
+     
+       
+      <button  class="txt-to-cart"><a href="{{url_for('menu.single_menu_item', id=item.id)}}">View Food</button>
+  
+    </div>
     </div>
 
  

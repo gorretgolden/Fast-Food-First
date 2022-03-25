@@ -20,7 +20,8 @@ def all_users():
 #getting a specific user 
 @users.route('/<int:id>', methods= ['GET'])
 def get_user(id):
-  user = cur.execute('SELECT * FROM users WHERE id = %(id)s',{'id':id})
+  cur.execute('SELECT * FROM users WHERE id = %(id)s',{'id':id})
+  user = cur.fetchone()  
   return jsonify({'user':user})
  
  

@@ -24,15 +24,23 @@ def user_order(id):
   return jsonify({'order':order})
 
 
+  
+#getting a specific user 
+@orders.route('/<int:id>', methods= ['GET'])
+def get_order(id):
+  cur.execute('SELECT * FROM orders WHERE id = %(id)s',{'id':id})
+  order = cur.fetchone()  
+  return jsonify({'order':order})
+
 #updating a specific order
 @orders.route("/update/<int:id>", methods=['POST'])
 def update_menu_items(id):
    if request.method == "POST":
-     food_id = request.form['food_name']
-     user_id = request.form['food_description']
-     total_cost = request.form['food_price']
-     order_status = request.form['image_url']
-     quantity = request.form['image_url']
+     food_id = request.json['food_name']
+     user_id = request.json['food_description']
+     total_cost = request.json['food_price']
+     order_status = request.json['image_url']
+     quantity = request.json['image_url']
     
      cur.execute("""
      
@@ -46,7 +54,7 @@ def update_menu_items(id):
        WHERE id = %s 
      """,
      
-         (food_id,user_id,order_status,total_cost,quantity)        
+         (food_id,user_id,order_status,total_cost,quantity,id)        
                  )
      conn.commit()
      flash('Food Item updated successfuly!','success')

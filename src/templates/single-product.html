@@ -2,21 +2,23 @@
 {% block content %}
    
 <div style="margin-bottom: 20px;">
-<div class= "products-search">
-    <p class="all-food">Chicken Burger</p>
-   
-</div>
+
  
 
-
+<form method="POST" action="{{url_for('main.add_food_to_cart')}}">
     <div class="card">
-        <img  class="products" src={{url_for('static', filename='/assets/chicken.png')}} alt="Avatar" >
+ 
+        <img  class="products" src={{item.image_url}} alt="food-image" >
         <div class="name">
-            <p>Burger</p>
-            <p>USH 20000</p>
-            <p>Chicken Burger with vegetable salads served with chili</p>
-          <p style="background-color:#8EC039;width:100px;margin:auto;color:white">Add to cart</p>
+            <p>{{item.food_name}}</p>
+            <p>USH {{item.food_price}}</p>
+            <p>{{item.food_description}}</p>
+            <br>
+            <input type="hidden" name="id" value="{{item.id}}"/>
+            <input required style="width:100px" type="text"  name="quantity" value="1"  />
+            <input style="width:100px;height:50px" type="submit" value="Add to Cart" />
         </div>
+      </form>
   </div>
      
 {% endblock content %}

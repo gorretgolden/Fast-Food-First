@@ -13,12 +13,12 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 def register_user():
   
   if request.method == "POST":
-        username = request.form['username']
-        email = request.form['email']
-        phone_number = request.form['phone_number']
-        address = request.form['user_address']
-        password1 = request.form['user_password']
-        password2 = request.form['password2']
+        username = request.json['username']
+        email = request.json['email']
+        phone_number = request.json['phone_number']
+        address = request.json['user_address']
+        password1 = request.json['user_password']
+        password2 = request.json['password2']
         
         
         #checking if email exists
@@ -57,18 +57,18 @@ def register_user():
         #inserting values
         cur.execute("INSERT INTO users (phone_number,username,email,user_address,user_password) VALUES (%s,%s,%s,%s,%s)", (phone_number,username,email,address,hashed_password))
         conn.commit()
-        flash('New user added successfully!','success')
-        return redirect(url_for('auth.login_user'))
-  return render_template('user-sign-up.html')  
+      #   flash('New user added successfully!','success')
+        return jsonify({'message':'new user created','name':username,'email':email,'phone number':phone_number,'passowrd':hashed_password})
+  return jsonify({'error':'wrong credentials'}) 
 
 
 @auth.route('/login', methods= ['POST','GET'])
 def login_user():
       
-      if request.method == "POST" and "email" in request.form and "user_password" in request.form:
-          email = request.form['email']
-          password = request.form['user_password']
-            
+      # if request.method == "POST" and "email" in request.form and "user_password" in request.form:
+          email = request.json['email']
+          password = request.json['user_password']
+          current_user_id = get_jwt_identity()  
           #check if email exits
           cur.execute('SELECT * FROM users WHERE email = %(email)s',{'email':email})
           user = cur.fetchone()
@@ -82,17 +82,18 @@ def login_user():
                       refresh_token = create_refresh_token(identity=user['id'])
                       print(access_token,refresh_token)
                       #redirect the user to home page for succesful login
-                      flash('You logged in successfully!','success')
-                      return redirect(url_for('main.home'))
+                  #     flash('You logged in successfully!','success')
+                  #     return redirect(url_for('main.home'))
                 
+                return jsonify({'message':"You logged in successfully!",'access_token':access_token,'refresh_token':refresh_token,'user_email':user['email'],'user_id':current_user_id})
                 
-                flash('Incorrect credentials please try again','error')
+            #     flash('Incorrect credentials please try again','error')
           
             
 
        
             
-      return render_template('user-login.html',user=user)  
+          return jsonify({'error':'wrong credentials'}) 
 
 
 
@@ -110,7 +111,7 @@ def logout_user():
     
 
 #refresh token endpoint
-@auth.route('/token/refresh')
+@auth.route('/token/refresh',methods=["POST"])
 @jwt_required(refresh=True)
 def refresh_users_token():
       identity = get_jwt_identity()
