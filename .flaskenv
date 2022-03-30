@@ -1,4 +1,5 @@
 export FLASK_ENV = development
-export FLASK_APP = src
+export FLASK_APP = foodapp
 export JWT_SECRET_KEY = "secrets"
 export SECRET_KEY = "devs"
+export JWT = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6dHJ1ZSwiaWF0IjoxNjQ4NTM2OTAzLCJqdGkiOiI5MjJjZDliMi0yN2I4LTRjMGItOGIwNS1lYzk3MzBlOGY5MzUiLCJ0eXBlIjoiYWNjZXNzIiwic3ViIjo0LCJuYmYiOjE2NDg1MzY5MDMsImV4cCI6MTY0ODUzNzgwM30.5YUxuD611byz58_ATWeQYLxDMAoEr7P4aky4oC_2g0g"

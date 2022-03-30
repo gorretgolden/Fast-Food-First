@@ -1,3 +1,28 @@
+# @users.route('/orders', methods= ['GET',"POST"])
+# def get_all_orders():
+#   if request.method == 'POST':
+#      food_id = request.args['food_name']
+#      user_id = request.args['food_description']
+#      total_cost = request.args['food_price']
+#      order_status = request.args['image_url']
+#      quantity = request.args['image_url']
+     
+#      #creating a new order   
+#      cur.execute('INSERT INTO orders (food_id,user_id,total_cost,order_status,quantity) VALUES (%s,%s,%s,%s,%s)', (food_id,user_id,total_cost,order_status,quantity))
+#      conn.commit()
+#      flash('You successfully made an order','success')
+     
+#   return render_template('all-orders.html') 
+   #updating the total cost
+        # cur.execute("UPDATE orders SET total_cost = %(quantity)s * %(item_food_price)s ", {'quantity':quantity,'item_food_price':item_food_price})
+          #update the quantity of  the order
+        
+        # cur.execute("UPDATE orders SET quantity = %(quantity)s ", {'quantity':quantity})
+          #update the total cost of  the order
+        # cur.execute(""""
+        #             UPDATE orders
+        #             SET orders.total_cost = (%(quantity)s * %(item_food_price)s)
+        #             """, (int(quantity),("SELECT food_price  FROM menu_items WHERE id = %(foodId)",({'id':food_id}))))  
 # @main.route('/add', methods=['POST','GET'])
 # def add_food_to_cart():
        
@@ -75,7 +100,52 @@
 #         return redirect(url_for('main.all_menu_products'))
 #     except Exception as e:
 #         print(e)
+# def handle_cart():
+#     products = []
+#     grand_total = 0
+#     index = 0
+#     quantity_total = 0
 
+#     for item in session['cart']:
+       
+#         cur.execute("SELECT * FROM menu_items WHERE id=%(id)s",{'id':item['id']})
+#         product = cur.fetchone()
+#         quantity = int(item['quantity'])
+#         total = quantity * product.price
+#         grand_total += total
+
+#         quantity_total += quantity
+
+#         products.append({'id': product.id, 'name': product.food_name, 'price':  product.food_price,
+#                          'image': product.image_url, 'quantity': quantity, 'total': total, 'index': index})
+#         index += 1
+
+#     grand_total_plus_shipping = grand_total + 1000
+
+#     return products, grand_total, grand_total_plus_shipping, quantity_total
+
+
+# @main.route('/add-to-cart', methods=['POST'])
+# def add_food_to_cart():
+#     if 'cart' not in session:
+#         session['cart'] = []
+
+#     id = request.form['id']
+#     quantity = int(request.form['quantity'])
+
+#     session['cart'].append({'id': id, 'quantity':quantity})             
+#     session.modified = True
+
+#     return redirect(url_for('main.menu_cart'))
+
+# @main.route('/remove-from-cart/<index>')
+# def remove_from_cart(index):
+#     del session['cart'][int(index)]
+#     session.modified = True
+#     return redirect(url_for('main.menu_cart'))
+
+
+ 
 
 # @main.route('/delete/<int:id>')
 # def delete_product(id):
