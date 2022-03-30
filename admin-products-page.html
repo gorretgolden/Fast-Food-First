@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div  style="margin-bottom:50px;margin-top:50px;margin-left:500px;display:flex;flex-direction:row;align-content:center">
+    <p>Customer Orders</p>
+  
+ 
+</diV>
+   
+
+
+<div class="users-table">
+    <table>
+      <tr>
+        <th>Customer  ID</th>
+        <th>Order Name</th>
+        <th>Order Quantity</th>
+        <th>Food ID</th>
+        <th>Order Status</th>
+        <th>Update</th>
+       
+     
+      </tr>
+      <tr>
+        <td>1 </td>
+        <td>Chicken Burger</td>
+        <td>3</td>
+        <td>2</td>
+        <td><checkbox>Completed</checkbox></td>
+        <td>
+            
+          <button  class="btn-table-update"><a href="{{url_for('menu.')}}">Update</a>/button>
+     
+          </td>
+    
+  
+      </tr>
+      <tr>
+            <td>1 </td>
+            <td>Chicken Burger</td>
+            <td>3</td>
+            <td>2</td>
+            <td><checkbox>Completed</checkbox></td>
+            <td>
+                  <div class="admin-tb">
+                  </div>
+                <form method="post" >
+                
+                <button  class="btn-table-update">Update</button>
+                </form>
+               
+                </td>
+      
+          </tr>
+    
+      
+    </table>
+  </div>
+     
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Update Customer Orders{% endblock %}
+{% block content%}
+
+<h3>{{order.status}}</h3><br>
+<div class="admin-edit-food ">
+  
+    <form method="POST" action="{{url_for('orders.update_menu_orders',id=order.id)}}">
+     
+      <!--User Id-->
+        <div class="fields">
+            <label for="title" >User Id:</label><br>
+          <input value="{{order.user_id}}" type="number"  name="food_name" >
+        </div>
+
+      <!--Food Id-->
+        <div  class="fields">
+          <label for="description"  >Food Id:</label><br>
+          <input  name="food_description"  value="{{order.id}}" type="number"   >
+        </div>
+  
+  
+         <!--Quantity-->
+         <div  class="fields">
+          <label for="qty"  >Food Quantity:</label><br>
+          <input name="quantity"  value="{{order.quantity}}" type="text"   >
+        </div>
+
+         <!--Order status-->
+         <div  class="fields">
+          <label for="url"  >Order Status:</label><br>
+          <input name="status"  value="{{order.status}}"type="text"   >
+        </div>
+        <br>
+          <!--Login button-->
+        <div style="padding;20px;margin-top:20px">
+    
+            <button type="submit" class="login-btn">Update Order</button>
+      
+        </div>
+    
+      </form>
+       
+   
+    
+  </div>
+
+
+
+
+  
+{%endblock%}

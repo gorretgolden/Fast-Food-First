@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+   
+<div style="margin-bottom: 20px;">
+
+
+<form method="POST" action="{{url_for('users.make_order')}}">
+    <div class="card">
+ 
+        <img  class="products" src={{item.image_url}} alt="food-image" >
+        <div class="name">
+            <p>{{item.food_name}}</p>
+            <p>USH {{item.food_price}}</p>
+            <p>{{item.food_description}}</p>
+            <br>
+            <input type="hidden" name="food_id" value="{{item.id}}"/>
+            <input minlength="1"  required style="width:100px" type="text"  name="quantity" value="1"  />
+           
+            <input style="width:100px;height:50px" type="submit" value="Make Order " />
+        </div>
+      </form>
+  </div>
+     
+{% endblock content %}
