@@ -1,0 +1,803 @@
+openapi: 3.0.1
+info:
+  title: FastFoodFastAPI
+  description: Online Food Ordering Restaurant API
+  version: '0.1'
+servers:
+  - url: http://127.0.0.1:5000
+paths:
+  /auth/login:
+
+    post:
+      description: Authenticates a registered user 
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - in: formData
+        name: email,
+        description: Email,
+        type: string
+      - in: formData
+        name: password,
+        description: Password,
+        type: string  
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_password:
+                  type: string
+                email:
+                  type: string
+            examples:
+              '0':
+                value: |2-
+                   {
+                             
+                          "email":"nabatanzigorret143@gmail.com",
+                          "user_password":"#golden@"
+                   }
+      responses:
+        '200':
+          description: Logged in successfully
+        '404':
+          description: Email not found
+        '402':
+          description: wrong password
+        '201':
+          description: Account disable
+        '500':
+          description: Internal Server error  
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  refresh_token:
+                    type: string
+                  user_email:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                '0':
+                  value: |
+                    {
+                      "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NzkzNTk1MSwianRpIjoiMGJjNjk1NzQtNjhlMS00MTg1LWE5ODktYjVhNGNjYjViNGIyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NCwibmJmIjoxNjQ3OTM1OTUxLCJleHAiOjE2NDc5MzY4NTF9.ir-M4ncw1kuhgarQYMotKg6nf7qog1W4fgI4TZ3dpG8", 
+                      "message": "You logged in successfully!", 
+                      "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NzkzNTk1MSwianRpIjoiNWEzM2FhZWYtNzY4NC00ZDk0LTkzNDctZGIwMTkyNzYxNTA0IiwidHlwZSI6InJlZnJlc2giLCJzdWIiOjQsIm5iZiI6MTY0NzkzNTk1MSwiZXhwIjoxNjUwNTI3OTUxfQ.IZ1-qZ5RIsySOIUi7xFn-V17jSFm-1jIRhvpF_9A3NI", 
+                      "user_email": "nabatanzigorret143@gmail.com"
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /auth/token/refresh:
+    post:
+      description: Provides a new refresh token
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_password:
+                  type: string
+                email:
+                  type: string
+            examples:
+              '0':
+                value: |2-
+                   {
+                             
+                          "email":"nabatanzigorret143@gmail.com",
+                          "user_password":"#golden@"
+                   }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access:
+                    type: string
+              examples:
+                '0':
+                  value: |
+                    {
+                      "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0NzkzNTk5OCwianRpIjoiM2Y4ZDZkZjctNDM1ZC00ZWNiLWFiZjYtOTY1ZWY4NjVhNmQzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6NCwibmJmIjoxNjQ3OTM1OTk4LCJleHAiOjE2NDc5MzY4OTh9.DoqKKqRiYUz_Ghy_OABDdDQITuFyNAfGmi3nA33Ardw"
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /menu/:
+    get:
+      description: returns all menu items
+      tags:
+        - Menu
+      responses:
+        '200':
+          description: returned successfully
+        '401':
+          description: User unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  menu:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: integer
+              examples:
+                '0':
+                  value: |
+                    {
+                      "menu": [
+                        [
+                          6, 
+                          "Chips and Liver", 
+                          "20000", 
+                          "Mon, 21 Mar 2022 11:01:04 GMT", 
+                          "This dish contains cow and goat liver served with mayonaise and fries", 
+                          "https://media.istockphoto.com/photos/ploughmans-lunch-with-chicken-liver-pate-picture-id488158341?b=1&k=20&m=488158341&s=170667a&w=0&h=WZzWxcPn1VWl5sqFe39fnZ1g7PYAfOMbOD3Ryjkd5No=", 
+                          "10 plates"
+                        ], 
+                        [
+                          8, 
+                          "Panfried Goat", 
+                          "20000", 
+                          "Mon, 21 Mar 2022 11:10:44 GMT", 
+                          "This dish contains cow and goat meat served with mayonaise and fries", 
+                          "https://media.istockphoto.com/photos/ploughmans-lunch-with-chicken-liver-pate-picture-id488158341?b=1&k=20&m=488158341&s=170667a&w=0&h=WZzWxcPn1VWl5sqFe39fnZ1g7PYAfOMbOD3Ryjkd5No=", 
+                          "10 plates"
+                        ], 
+                        [
+                          11, 
+                          "Chicken Fried Rice", 
+                          "24000", 
+                          "Mon, 21 Mar 2022 11:37:20 GMT", 
+                          "This dish contains chicken dices with pilawo rice served with gravy", 
+                          "https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGZyaWVkJTIwcmljZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60", 
+                          "10 plates"
+                        ], 
+                        [
+                          5, 
+                          "Chips and Chicken", 
+                          "15000", 
+                          "Thu, 17 Mar 2022 15:20:46 GMT", 
+                          "This dish contains marryland chicken and is served without sauce", 
+                          "https://media.istockphoto.com/photos/fries-and-nuggets-picture-id458899491?b=1&k=20&m=458899491&s=170667a&w=0&h=MsJrJrn7fVmQ5_V1lL3IVyVgl2XPzjL_0HayN8bpo90=", 
+                          "20 plates"
+                        ], 
+                        [
+                          4, 
+                          "Chicken Pizza", 
+                          "25000", 
+                          "Thu, 17 Mar 2022 15:15:57 GMT", 
+                          "This dish contains mushroom soup and chicken dices ", 
+                          "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=481&q=80", 
+                          "10 boxes"
+                        ]
+                      ]
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /orders/{orderId}:
+    get:
+      description: Obtains an order by the order id
+      tags:
+        - Orders
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of the order to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Returned order successfully
+        '404':
+          description: Order not found
+        '401':
+          description: User unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order: {}
+              examples:
+                '0':
+                  value: |
+                    {
+                      "order": null
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /menu/{menuId}:
+    get:
+      description: Returns a specific menu item with its id
+      tags:
+        - Menu
+      parameters:
+        - name: menuId
+          in: path
+          description: ID of the menu to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Returned successfully
+        '401':
+          description: User unauthorized
+        '404':
+          description: Food item not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  price:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+                  stock:
+                    type: string
+              examples:
+                '0':
+                  value: |
+                    {
+                      "description": "This dish contains mushroom soup and chicken dices ", 
+                      "id": 4, 
+                      "name": "Chicken Pizza", 
+                      "price": "25000", 
+                      "stock": "10 boxes"
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /auth/signup:
+    post:
+      description: Registers a new user
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - in: formData
+        name: email,
+        description: Email,
+        type: string
+      - in: formData
+        name: user_password,
+        description: Password,
+        type: string  
+      - in: formData
+        name: password2,
+        description: Password,
+        type: string  
+      - in: formData
+        name: username,
+        description: Username,
+        type: string 
+      - in: formData
+        name: user_address
+        description: User Location,
+        type: string  
+      - in: formData
+        name: phone_number
+        description: User Contact,
+        type: string 
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_password:
+                  type: string
+                user_address:
+                  type: string
+                phone_number:
+                  type: string
+                password2:
+                  type: string
+                email:
+                  type: string
+                username:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                          "username": "Kikonyogo Sadic",
+                          "email":"sadic123@gmail.com",
+                         "phone_number": "0751547655",
+                         "user_address": "Gayaza",
+                         "user_password":"#golden@",
+                         "password2":"#golden@"
+                      
+                  }
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  message:
+                    type: string
+                  phone number:
+                    type: string
+                  passowrd:
+                    type: string
+                  email:
+                    type: string
+              examples:
+                '0':
+                  value: |
+                    {
+                      "email": "sadic123@gmail.com", 
+                      "message": "new user created", 
+                      "name": "Kikonyogo Sadic", 
+                      "passowrd": "sha256$tykh87GkE7jNLT1w$793ad3304e6792b3de51b12706d43d3bc749a0c8f0ca6d8732f4d12fa0bdc067", 
+                      "phone number": "0751547655"
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /users/:
+    get:
+      description: Retrieves all users
+      tags: 
+       - Users
+      responses:
+        '200':
+          description: returned successfully
+        '401':
+          description: User unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: integer
+              examples:
+                '0':
+                  value: |
+                    {
+                      "users": [
+                        [
+                          4, 
+                          "0751547654", 
+                          "Wed, 16 Mar 2022 14:47:03 GMT", 
+                          "Nabatanzi Gorret", 
+                          "nabatanzigorret143@gmail.com", 
+                          "Mengo", 
+                          "sha256$GQ9CBZ7RUxH1tqOQ$b573fa46a004c6d1371850b446a9e14ce3a8d12cee5ec49a3b533d8d563572a3"
+                        ], 
+                        [
+                          6, 
+                          "0776740156", 
+                          "Wed, 16 Mar 2022 15:02:30 GMT", 
+                          "Robinah Ayokoru", 
+                          "robinah@gmail.com", 
+                          "Kyanja", 
+                          "sha256$zZAbWlcfpVjMBZjg$cc47736da1152e2a5b9a1074e3a61081c02f2b1f3aa6ca4c98d3f7bbfd984cd0"
+                        ], 
+                        [
+                          7, 
+                          "0709811587", 
+                          "Thu, 17 Mar 2022 10:42:38 GMT", 
+                          "Ssemakula Kevin", 
+                          "ssemakulakevin@gmail.com", 
+                          "Lunguja", 
+                          "sha256$BETE4dKaki5bquqZ$67facac7d7264ea5dd75a9f8c511d89322eacf274477335e3f72cc1cf14751f4"
+                        ], 
+                        [
+                          9, 
+                          "0776740157", 
+                          "Thu, 17 Mar 2022 10:49:46 GMT", 
+                          "Ssemakula Kevin", 
+                          "kevinssemakula57@gmail.com", 
+                          "kampala, makindye", 
+                          "sha256$KYGJLP9SRN75kU3Q$7c73ba80146ceee1d21c4bd2b0ef250118b68b0ffa5a0018d31a982cf2570d32"
+                        ], 
+                        [
+                          10, 
+                          "0705203276", 
+                          "Thu, 17 Mar 2022 10:56:21 GMT", 
+                          "Mbabazi Joy", 
+                          "mbabazijoy@gmail.com", 
+                          "Mutungo", 
+                          "sha256$ktOaPazpmNkFowFJ$a7417e9635ba6d3ea2b2e41daabab47e42a0b0eeef8ac01952e2b985303152bd"
+                        ], 
+                        [
+                          13, 
+                          "0773874765", 
+                          "Mon, 21 Mar 2022 11:56:55 GMT", 
+                          "Aladina Phionah", 
+                          "phionah@gmail.com", 
+                          "Kamokya", 
+                          "sha256$m5o5YUqzGDCjOoEO$9d80835fe605638cee891dc095f32e634fe4696ed233d0e3ba8558b558f2f6bc"
+                        ], 
+                        [
+                          14, 
+                          "0751080350", 
+                          "Mon, 21 Mar 2022 11:58:08 GMT", 
+                          "Babirye Janet", 
+                          "janet12@gmail.com", 
+                          "Kireka", 
+                          "sha256$9SFgkgOoNM7Iha2o$0771e14b9dc734daae602b6abb5a21bcca8aa0dbacd1564e753fe84b72488e79"
+                        ], 
+                        [
+                          15, 
+                          "0751547655", 
+                          "Tue, 22 Mar 2022 12:23:01 GMT", 
+                          "Kikonyogo Sadic", 
+                          "sadic123@gmail.com", 
+                          "Gayaza", 
+                          "sha256$tykh87GkE7jNLT1w$793ad3304e6792b3de51b12706d43d3bc749a0c8f0ca6d8732f4d12fa0bdc067"
+                        ]
+                      ]
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000    
+  /users/{userId}:
+    get:
+      description: Returns a specific registered user with the user id
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the registered user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Returned successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: array
+                    items:
+                      type: integer
+              examples:
+                '0':
+                  value: |
+                    {
+                      "user": [
+                        4, 
+                        "0751547654", 
+                        "Wed, 16 Mar 2022 14:47:03 GMT", 
+                        "Nabatanzi Gorret", 
+                        "nabatanzigorret143@gmail.com", 
+                        "Mengo", 
+                        "sha256$GQ9CBZ7RUxH1tqOQ$b573fa46a004c6d1371850b446a9e14ce3a8d12cee5ec49a3b533d8d563572a3"
+                      ]
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /orders/:
+    get:
+      description: Returns all orders from the database
+      tags:
+        - Orders
+      responses:
+        '200':
+          description: Returned successfully
+        '401':
+          description: User unauthorized
+        '404':
+          description: Orders not found
+         
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      type: string
+              examples:
+                '0':
+                  value: |
+                    {
+                      "orders": []
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  paths:
+  /menu/update/{id}:
+    post:
+      description: Updates a specific menu item
+      parameters:
+      - in: formData
+        name: food_name
+        description: Food name
+        type: string
+      - in: formData
+        name: food_price
+        description: Food price
+        type: int64
+      - in: formData
+        name: food_description
+        description: Food description
+        type: string 
+      - in: formData
+        name: food_stock_quantity
+        description: Food stock quantity
+        type: string   
+      - in: formData
+        name: image_url
+        description: Food image url
+        type: string   
+      tags:
+      - Menu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                food_name:
+                  type: string
+                food_price:
+                  type: integer
+                image_url:
+                  type: string
+                food_description:
+                  type: string
+                food_stock_quantity:
+                  type: string
+            examples:
+              '0':
+                value: |-
+                  {
+                      "food_name":"Chips and Liver",
+                      "food_price":20000,
+                      "food_description":"This dish contains cow and goat liver served with mayonaise and fries",
+                      "food_stock_quantity":"12 plates",
+                      "image_url":"https://media.istockphoto.com/photos/ploughmans-lunch-with-chicken-liver-pate-picture-id488158341?b=1&k=20&m=488158341&s=170667a&w=0&h=WZzWxcPn1VWl5sqFe39fnZ1g7PYAfOMbOD3Ryjkd5No="
+                  }
+      responses:
+        '200':
+          description: Updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  food_name:
+                    type: string
+                  food_price:
+                    type: integer
+                  image_url:
+                    type: string
+                  food_description:
+                    type: string
+                  message:
+                    type: string
+                  food_stock_quantity:
+                    type: string
+              examples:
+                '0':
+                  value: |
+                    {
+                      "food_description": "This dish contains cow and goat liver served with mayonaise and fries", 
+                      "food_name": "Chips and Liver", 
+                      "food_price": 20000, 
+                      "food_stock_quantity": "12 plates", 
+                      "image_url": "https://media.istockphoto.com/photos/ploughmans-lunch-with-chicken-liver-pate-picture-id488158341?b=1&k=20&m=488158341&s=170667a&w=0&h=WZzWxcPn1VWl5sqFe39fnZ1g7PYAfOMbOD3Ryjkd5No=", 
+                      "message": "Food Updated"
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000    
+  /menu/create:
+    post:
+      description: Creates a new menu item
+      parameters:
+      - in: formData
+        name: food_name
+        description: Food name
+        type: string
+      - in: formData
+        name: food_price
+        description: Food price
+        type: integer
+      - in: formData
+        name: food_description
+        description: Food description
+        type: string 
+      - in: formData
+        name: food_stock_quantity
+        description: Food stock quantity
+        type: string   
+      - in: formData
+        name: image_url
+        description: Food image url
+        type: string  
+      tags:
+        - Menu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                food_name:
+                  type: string
+                food_price:
+                  type: integer
+                image_url:
+                  type: string
+                food_description:
+                  type: string
+                food_stock_quantity:
+                  type: string
+            examples:
+              '0':
+                value: |2-
+                   {
+                             "food_name": "Fish Fillet",
+                              "food_description":"This dish contains fish fillet and is served with any other food dish of your choice like rice, irish potatoes, mashed potatoes and vegetable salads",
+                             "food_price": 30000,
+                            "image_url":  "https://media.istockphoto.com/photos/grilled-halibut-with-spinach-leeks-and-pine-nuts-picture-id503337620?b=1&k=20&m=503337620&s=170667a&w=0&h=L-LJlhhsNNQVrY65U6Ogj4vRZyC8QitUJshHl-mgZ_I=",
+                             "food_stock_quantity": "15 plates"
+                   }
+      responses:
+        '500':
+          description: Food added successfully
+        '401':
+          description: User unauthorized
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000
+  /menu/delete/{menuId}:
+    delete:
+      description: Deletes a specific menu item
+      tags: 
+       - Menu
+      parameters:
+        - name: menuId
+          in: path
+          description: ID of the order to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '500':
+          description: Auto generated using Swagger Inspector
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000    
+components:
+  schemas:
+    menu_items:
+      type: object
+      properties:
+        Id:
+          type: integer
+          example: 2
+        food_name:
+          type: string
+          example: Chips and Liver
+        food_price:
+          type: integer
+          example: 25000
+        food_stock_quantity:
+           type: string
+           example: 20 plates
+        image_url:
+          type: string
+          example: https://media.istockphoto.com/photos/fries-and-nuggets-picture-id458899491?b=1&k=20&m=458899491&s=170667a&w=0&h=MsJrJrn7fVmQ5_V1lL3IVyVgl2XPzjL_0HayN8bpo90=       
+        food_description:
+          type: string
+          example: This dish is served with vegetable salads 
+    users:
+      type: object
+      properties:
+        Id:
+          type: integer
+          example: 4
+        username:
+          type: string
+          example: Nabatanzi Gorret
+        email:  
+          type: string
+          example: "nabatanzigorret143@gmail.com"
+        user_passowrd:
+          type: string
+          example: #golden@
+        phone_number:
+           type: string
+           example: 0751547654  
+        user_address:
+           type: string
+           example: Mengo   
+    orders: 
+      type: object
+      properties:
+        Id:
+          type: integer
+          example: 2
+        userId:
+          type: integer
+          example: 4
+        food_Id:
+          type: integer
+          example: 4
+        quantity:
+           type: integer
+           example: 3
+        total_cost:
+          type: integer
+          example: 240000                  
+          
+       
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://yourauthurl.com
+          scopes:
+            scope_name: Enter your scopes here

@@ -21,7 +21,6 @@ def all_orders():
 
 #getting a specific order for a logged in user, by admin
 @orders.route('/<int:id>', methods= ['GET'])
-@jwt_required()
 def user_order(id):
   cur.execute('SELECT * FROM orders WHERE id = %(id)s',{'id':id})
   order = cur.fetchone()

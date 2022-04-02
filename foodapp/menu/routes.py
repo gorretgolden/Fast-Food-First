@@ -11,10 +11,6 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 @jwt_required()
 def all_menu_products():
     #ensuring that a user has logged in
-    current_user = get_jwt_identity()
-    if not current_user:
-        flash('Please login to access the menu page','error')
-        return redirect(url_for('auth.login'))
     #fetching all products
     cur.execute("SELECT * FROM menu_items")
     items = cur.fetchall()
@@ -73,14 +69,13 @@ def edit_menu_items(id):
 
 #updating a specific menu item
 @menu.route("/update/<int:id>", methods=['POST',"GET"])
-@jwt_required()
 def update_menu_items(id):
    if request.method == "POST":
-     food_name = request.form['food_name']
-     food_description = request.form['food_description']
-     food_price = request.form['food_price']
-     image_url = request.form['image_url']
-     food_stock_quantity = request.form['food_stock_quantity']
+     food_name = request.json['food_name']
+     food_description = request.json['food_description']
+     food_price = request.json['food_price']
+     image_url = request.json['image_url']
+     food_stock_quantity = request.json['food_stock_quantity']
     
      cur.execute("""
      
@@ -96,7 +91,8 @@ def update_menu_items(id):
                  )
      conn.commit()
      flash('Food Item updated successfuly!','success')
-     return redirect(url_for('admin.admin_dashboard'))
+     return jsonify({'message':"Food Updated","food_name":food_name,"food_price":food_price,"food_description":food_description,"food_stock_quantity":food_stock_quantity,"image_url":image_url})
+    #  return redirect(url_for('admin.admin_dashboard'))
  
  
 #deleting a menu item from the database

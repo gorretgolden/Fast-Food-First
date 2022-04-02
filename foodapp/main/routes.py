@@ -1,8 +1,8 @@
-import re
-from tkinter import E
-from flask import flash,redirect, render_template, request, Blueprint, session, url_for
+from flask import flash, jsonify,redirect, render_template, request, Blueprint, session, url_for
 from foodapp.dbcon.db import conn
 import psycopg2, psycopg2.extras
+from flask_swagger import swagger
+from flask_swagger_ui import get_swaggerui_blueprint
 
 main = Blueprint('main', __name__)
 
@@ -10,32 +10,8 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 @main.route("/")
 def home():
     
-    if "cart" in session.keys():
-        pass
-    else:
-        session["cart"] = []
-    return render_template('home.html')
-
-
-@main.route('/cart')
-def menu_cart():
-    products, grand_total, grand_total_plus_shipping, quantity_total = handle_cart()
-
-    return render_template('cart.html', products=products, grand_total=grand_total, grand_total_plus_shipping=grand_total_plus_shipping, quantity_total=quantity_total)
-
-import re
-from tkinter import E
-from flask import flash,redirect, render_template, request, Blueprint, session, url_for
-from foodapp.dbcon.db import conn
-import psycopg2, psycopg2.extras
-
-main = Blueprint('main', __name__)
-
-cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-@main.route("/")
-def home():
-    
-    return render_template('home.html')
+    # return jsonify({'message':'Welcome'})
+    return render_template('main.html')
 
 
 @main.route('/cart')
@@ -45,6 +21,15 @@ def menu_cart():
     return render_template('cart.html')
 
 
+
+@main.route("/api/spec")
+def spec():
+  swag = swagger(app, prefix='/api')
+  swag['info']['base'] = "http://localhost:5000"
+  swag['info']['version'] = "1.0"
+  swag['info']['title'] = "Fast Food First API"
+  return jsonify(swag)
+swaggerui_blueprint = get_swaggerui_blueprint('/api/docs', '/api/spec', config={'app_name': "Fast Food First API"})
 
 
 

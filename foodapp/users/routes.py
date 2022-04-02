@@ -9,7 +9,6 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 #all users endpoint
 @users.route("/", methods=['GET'])
-@jwt_required()
 def all_users():
     #fetching all users
     cur.execute("SELECT * FROM users")
@@ -20,7 +19,7 @@ def all_users():
   
 #getting a specific user 
 @users.route('/<int:id>', methods= ['GET'])
-@jwt_required()
+
 def get_user(id):
   cur.execute('SELECT * FROM users WHERE id = %(id)s',{'id':id})
   user = cur.fetchone()  
@@ -37,13 +36,15 @@ def make_order():
         quantity = int(request.json['quantity'])
         user_id = get_jwt_identity()
         food_id = request.json['food_id']
+        
      
         #getting the food price and total cost
-        cur.execute("SELECT food_price FROM menu_items WHERE id = %(food_id)s", {'food_id':food_id})
-        food_details = cur.fetchone()
-        item_food_price = food_details['food_price']
+        #getting food price
+        #item_food_price = 
+        #cur.fetchone()
+     
         initial_cost = 0
-        total_cost = initial_cost + (quantity * item_food_price)
+        total_cost = initial_cost + (quantity * (cur.execute("SELECT food_price FROM menu_items WHERE id = %(food_id)s", {'food_id':food_id})))
         
     
         #checking if food order exists

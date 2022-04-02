@@ -13,43 +13,43 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 def register_user():
   
   if request.method == "POST":
-        username = request.form['username']
-        email = request.form['email']
-        phone_number = request.form['phone_number']
-        address = request.form['user_address']
-        password1 = request.form['user_password']
-        password2 = request.form['password2']
+        username = request.json['username']
+        email = request.json['email']
+        phone_number = request.json['phone_number']
+        address = request.json['user_address']
+        password1 = request.json['user_password']
+        password2 = request.json['password2']
         
         
         #checking if email exists
         email_exists = cur.execute("SELECT email FROM users WHERE email = %(email)s", {'email':email})
         if email_exists:
-              flash('Email address already exists!')
+              return jsonify({'error':'Email address already exists!'})
           
          #checking if username exists
         username_exists = cur.execute("SELECT username FROM users WHERE username = %(username)s", {'username':username})
         if username_exists:
-              flash('Username already in use!')      
+              return jsonify({'error':'Username already in use!'})      
           
           
        #checking if phonenumber exists
         phone_number_exists = cur.execute("SELECT phone_number FROM users WHERE phone_number = %(phone_number)s", {'phone_number':phone_number})
         if phone_number_exists:
-              flash('Phone number already in use!')     
+              jsonify({'error':'Phone number already in use!'})     
         #do passwords match
         if password1!=password2:
-              flash("Passwords don\t match!",'error')
+              jsonify({'error':"Passwords don\t match!"})
         
         if len(password1) < 4:
-          flash("Password is too short")  
+          jsonify({"error":"Password is too short"})  
         
         #username alphabetic
         if username.isalpha():
-          flash('Username must be alphabetic')  
+          jsonify({'error':'Username must be alphabetic'})  
           
          #validate email
         if not validators.email(email):
-          flash('Please enter a valid email address')      
+          jsonify({'error':'Please enter a valid email address'})      
         
         #creating a hashed password in the database
         hashed_password = generate_password_hash(password1,method="sha256")
@@ -86,17 +86,18 @@ def login_user():
                       
                     # redirect the user to home page for succesful login
                       flash('You logged in successfully!','success')
-                  #     return redirect(url_for('main.home'))
+                      #return redirect(url_for('main.home'))
                 
-                return jsonify({'message':"You logged in successfully!",'access_token':access_token,'refresh_token':refresh_token,'user_email':user['email'],'user_id':user['id']})
+                      return jsonify({'message':" You logged in successfully!",'access_token':access_token,'refresh_token':refresh_token,'user_email':user['email'],'user_id':user['id']})
                 
-            #     flash('Incorrect credentials please try again','error')
+                
+          return jsonify({'error':'user doesnt exists'})
+          
+          
           
             
 
-       
-            
-          return jsonify({'error':'wrong credentials'}) 
+      # return jsonify({'error':'email and password required'}) 
 
 
 
