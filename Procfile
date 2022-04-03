@@ -1,1 +1,1 @@
-web: gunicorn foodapp.runner:application
+web: gunicorn foodapp.runner:app

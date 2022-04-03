@@ -66,30 +66,33 @@ def register_user():
 
 def login_user():
       
-      # if request.method == "POST" and "email" in request.form and "user_password" in request.form:
-          email = request.json['email']
-          password = request.json['user_password']
+      if request.method == "POST":
+          data = request.form  
+          email = data["email"]
+          password = data['user_password']
           
           #check if email exits
           cur.execute('SELECT * FROM users WHERE email = %(email)s',{'email':email})
           user = cur.fetchone()
+          user_id = user['id']
           if user:
                 #check if userpassword matches the sha password in db
                 password_check = check_password_hash(user['user_password'],password)
                 print(password_check)
                 if password_check:
                       #create refresh and acces tokens
-                      access_token = create_access_token(identity=user['id'], fresh=True)
-                      refresh_token = create_refresh_token(identity=user['id'])
+                      access_token = create_access_token(identity=user_id, fresh=True)
+                      refresh_token = create_refresh_token(identity=user_id)
                       print(access_token,refresh_token)
                     
-                      
                     # redirect the user to home page for succesful login
-                      flash('You logged in successfully!','success')
+                  #     flash('You logged in successfully!','success')
                       #return redirect(url_for('main.home'))
-                
+                  #     cur.execute(" UPDATE users SET access_token = %s WHERE id = %s  ", (access_token,user_id))
+                      cur.execute("UPDATE users SET access_token = %(access_token)s  WHERE id = %(id)s", {'access_token':access_token,'id':user_id})
                       return jsonify({'message':" You logged in successfully!",'access_token':access_token,'refresh_token':refresh_token,'user_email':user['email'],'user_id':user['id']})
-                
+                else:
+                       return jsonify({"eror":"Wrong password"})
                 
           return jsonify({'error':'user doesnt exists'})
           
@@ -97,7 +100,7 @@ def login_user():
           
             
 
-      # return jsonify({'error':'email and password required'}) 
+      return jsonify({'error':'email and password required'}) 
 
 
 

@@ -19,6 +19,7 @@ def all_orders():
   # return render_template('all-orders.html',orders = orders) 
   return jsonify({'orders':orders})
 
+
 #getting a specific order for a logged in user, by admin
 @orders.route('/<int:id>', methods= ['GET'])
 def user_order(id):
@@ -28,14 +29,14 @@ def user_order(id):
 
 
 #updating a specific order , by an admin
-@orders.route("/update/<int:id>", methods=['POST'])
-@jwt_required()
-def update_menu_items(id):
-   if request.method == "POST":
-     user_id = get_jwt_identity()
+@orders.route("/<int:id>", methods=['PUT'])
+def update_orders(id):
+   if request.method == "PUT":
+     user_id = request.json['user_id']
      order_status = request.json['status']
-     quantity = request.json['image_url']
+     quantity = request.json['quantity']
      food_id = request.json['food_id']
+     
     
      cur.execute("SELECT food_price FROM menu_items WHERE id = %(food_id)s", {'food_id':food_id})
      food_details = cur.fetchone()
@@ -46,17 +47,24 @@ def update_menu_items(id):
        UPDATE orders
        SET user_id = %s,
        food_id = %s,
-       quantity = %s
+       status = %s,
+       quantity = %s,
+       total_cost = %s 
+       
        WHERE id = %s 
-     """,
+      """,
      
-         (user_id,food_id,order_status,total_cost,quantity,id)        
-                 )
+      (user_id,food_id,order_status,quantity,total_cost,id))
+     cur.execute("SELECT (SUM(total_cost)) FROM orders WHERE user_id = %(user_id)s",{'user_id':user_id})
+     grand_total = cur.fetchone() 
+
+     cur.execute("SELECT (SUM(quantity)) FROM orders WHERE user_id = %(user_id)s",{'user_id':user_id})
+     total_orders = cur.fetchone()            
      conn.commit()
-     #flash('Food Order updated successfuly!','success')
+       #flash('Food Order updated successfuly!','success')
     
-     #return redirect(url_for('admin.admin_dashboard'))
-     return jsonify({'message':'Order updated sucessfully'})
+       #return redirect(url_for('admin.admin_dashboard'))
+     return jsonify({'message':'Order updated sucessfully','grand_total':grand_total,'total_orders':total_orders})
   
 
   #deleting a food order from the database

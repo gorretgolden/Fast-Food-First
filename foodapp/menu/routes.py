@@ -8,7 +8,7 @@ cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 #retrieving all menu iitems
 @menu.route("/", methods=['GET'])
-@jwt_required()
+
 def all_menu_products():
     #ensuring that a user has logged in
     #fetching all products
@@ -24,26 +24,33 @@ def single_menu_item(id):
     cur.execute('SELECT * FROM menu_items WHERE id = %(id)s',{'id':id})
     data = cur.fetchone()
     #return render_template('single-product.html',item = item)
-    return jsonify({'id':data['id'],'name':data['food_name'],'price':data['food_price'],'description':data['food_description'],'stock':data['food_stock_quantity']})
+    return jsonify({'id':data['id'],'name':data['food_name'],'price':data['food_price'],'description':data['food_description'],'stock':data['food_stock_quantity'],'image':data['image_url']})
 
 #creating menu-item
-@menu.route("/create", methods=['GET',"POST"])
-@jwt_required()
+@menu.route("/create", methods=["POST"])
+
 def new_menu_item():
-    if request.method == "POST":
+    # if request.method == "POST":
         food_name = request.json['food_name']
         food_description = request.json['food_description']
         food_price = request.json['food_price']
         image_url = request.json['image_url']
         food_stock_quantity = request.json['food_stock_quantity']
        
-        #inserting values into the menu_table
-        cur.execute("INSERT INTO menu_items (food_name,food_description,food_price,image_url,food_stock_quantity) VALUES (%s,%s,%s,%s,%s)", (food_name,food_description,food_price,image_url,food_stock_quantity))
-        conn.commit()
-        flash("New menu item added successfully!!",'success')
-        return redirect(url_for('admin.admin_dashboard'))
-    #return render_template('admin-dashboard.html')
-    return jsonify({'message':'new food item created','food name':food_name,'food price':food_price,'food description':food_description,'stock quantity':food_stock_quantity})
+        #checking if food name exists
+        cur.execute('SELECT * FROM menu_items WHERE food_name = %(food_name)s',{'food_name':food_name})
+        foodname = cur.fetchone()
+        if foodname:
+            return jsonify({'error':"Food name already exists"})
+        else:
+
+          #inserting values into the menu_table
+          cur.execute("INSERT INTO menu_items (food_name,food_description,food_price,image_url,food_stock_quantity) VALUES (%s,%s,%s,%s,%s)", (food_name,food_description,food_price,image_url,food_stock_quantity))
+          conn.commit()
+        # flash("New menu item added successfully!!",'success')
+        # return redirect(url_for('admin.admin_dashboard'))
+        #return render_template('admin-dashboard.html')
+        return jsonify({'message':'new food item created','food_name':food_name,'food_price':food_price,'food_description':food_description,'stock_quantity':food_stock_quantity,'image':image_url})
 
 
 #view menu-item
@@ -53,7 +60,7 @@ def view_menu_item(id):
     #obtaining menu id
     cur.execute("SELECT * FROM menu_items WHERE id = %(id)s", {'id':id})
     data = cur.fetchone()
-    return jsonify({'id':data['id'],'name':data['food_name'],'price':data['food_price'],'description':data['food_description'],'stock':data['food_stock_quantity']})
+    return jsonify({'id':data['id'],'name':data['food_name'],'price':data['food_price'],'description':data['food_description'],'stock':data['food_stock_quantity'],'food_image':data['image_url']})
 
 
 
@@ -68,7 +75,7 @@ def edit_menu_items(id):
 
 
 #updating a specific menu item
-@menu.route("/update/<int:id>", methods=['POST',"GET"])
+@menu.route("/update/<int:id>", methods=["PUT"])
 def update_menu_items(id):
    if request.method == "POST":
      food_name = request.json['food_name']
@@ -102,4 +109,5 @@ def delete_menu_item(id):
      cur.execute("DELETE FROM menu_items WHERE id = %(id)s", {'id':id})
      conn.commit()
      flash('Food Item deleted successfuly!','success')
-     return redirect(url_for('admin.admin_dashboard'))
+    #  return redirect(url_for('admin.admin_dashboard'))
+     return jsonify({'message':"Food deleted"})

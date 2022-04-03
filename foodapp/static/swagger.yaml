@@ -236,6 +236,7 @@ paths:
         - url: http://127.0.0.1:5000
     servers:
       - url: http://127.0.0.1:5000
+       
   /menu/{menuId}:
     get:
       description: Returns a specific menu item with its id
@@ -485,6 +486,81 @@ paths:
         - url: http://127.0.0.1:5000
     servers:
       - url: http://127.0.0.1:5000    
+  /users/orders:
+    post:
+      description: Creates a new user order
+      tags:
+           - Users
+      parameters:
+        - name: b
+          in: header
+          allowEmptyValue: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                food_id:
+                  type: integer
+            examples:
+              '0':
+                value: "{\r\n   \r\n    \"food_id\":11,\r\n    \"quantity\":2\r\n}"
+      responses:
+        '200':
+          description: Food order placed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quantity:
+                    type: integer
+                  total_cost:
+                    type: string
+                  food-id:
+                    type: integer
+                  user-id:
+                    type: integer
+                  grand_total:
+                    type: array
+                    items:
+                      type: integer
+                  total_orders:
+                    type: array
+                    items:
+                      type: integer
+                  info:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+              examples:
+                '0':
+                  value: |
+                    {
+                      "food-id": 11, 
+                      "grand_total": [
+                        113000
+                      ], 
+                      "info": {
+                        "message": "New order placed"
+                      }, 
+                      "quantity": 2, 
+                      "total_cost": "48000", 
+                      "total_orders": [
+                        4
+                      ], 
+                      "user-id": 4
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000     
   /users/{userId}:
     get:
       description: Returns a specific registered user with the user id
@@ -528,6 +604,7 @@ paths:
         - url: http://127.0.0.1:5000
     servers:
       - url: http://127.0.0.1:5000
+   
   /orders/:
     get:
       description: Returns all orders from the database
@@ -560,6 +637,171 @@ paths:
         - url: http://127.0.0.1:5000
     servers:
       - url: http://127.0.0.1:5000
+  /users/orders/{id}:
+    get:
+      description: Order history for a specific user
+      tags:
+      - Users
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the registered user
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: returned sucessfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grand_total:
+                    type: array
+                    items:
+                      type: integer
+                  total_orders:
+                    type: array
+                    items:
+                      type: integer
+                  orders_history:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: integer
+              examples:
+                '0':
+                  value: |
+                    {
+                      "grand_total": [
+                        161000
+                      ], 
+                      "orders_history": [
+                        [
+                          101, 
+                          "Sun, 03 Apr 2022 15:45:07 GMT", 
+                          4, 
+                          11, 
+                          "pending", 
+                          2, 
+                          48000
+                        ], 
+                        [
+                          99, 
+                          "Sun, 03 Apr 2022 15:14:05 GMT", 
+                          4, 
+                          11, 
+                          "complete", 
+                          2, 
+                          48000
+                        ], 
+                        [
+                          96, 
+                          "Sun, 03 Apr 2022 15:10:06 GMT", 
+                          4, 
+                          17, 
+                          "pending", 
+                          1, 
+                          45000
+                        ], 
+                        [
+                          97, 
+                          "Sun, 03 Apr 2022 15:11:17 GMT", 
+                          4, 
+                          6, 
+                          "pending", 
+                          1, 
+                          20000
+                        ]
+                      ], 
+                      "total_orders": [
+                        6
+                      ]
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000    
+
+  /orders/{id}:
+    put:
+      description: Updates a specific order
+      tags:
+      - Orders
+      parameters:
+        - name: userId
+          in: body
+          description: ID of the registered user
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: foodId
+          in: body
+          description: ID of the menu item
+          required: true
+        - name: quantity
+          in: body
+          description: Amount of food
+          required: true  
+        - name: status
+          in: body
+          description: Status of the order
+          required: true  
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                user_id:
+                  type: string
+                food_id:
+                  type: integer
+                status:
+                  type: string
+            examples:
+              '0':
+                value: "{\r\n  \r\n    \"food_id\":11,\r\n    \"user_id\":\"4\",\r\n    \"quantity\":2,\r\n    \"status\":\"complete\"\r\n}"
+      responses:
+        '200':
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  grand_total:
+                    type: array
+                    items:
+                      type: integer
+                  message:
+                    type: string
+                  total_orders:
+                    type: array
+                    items:
+                      type: integer
+              examples:
+                '0':
+                  value: |
+                    {
+                      "grand_total": [
+                        161000
+                      ], 
+                      "message": "Order updated sucessfully", 
+                      "total_orders": [
+                        6
+                      ]
+                    }
+      servers:
+        - url: http://127.0.0.1:5000
+    servers:
+      - url: http://127.0.0.1:5000     
   paths:
   /menu/update/{id}:
     post:
