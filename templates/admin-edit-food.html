@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Admin Edit Food Item</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link rel="stylesheet" href="../static/styles/base.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <header id="header">
+
+        <!--Navbar-->
+        <nav>
+            <ul>
+
+                <li><a class="active" href="./home.html"><span style="color:#8EC039">Home</span></a></li>
+                <li><a href="./all-menu-items.html">Menu</a></li>
+                <li><a href="./admin-dashboard.html">Admin</a></li>
+                <li><a href="./cart.html"><i class=" fa fa-shopping-cart" style="color:white"></i></a></li>
+
+
+                <li><a href="./user-login.html">Login</a></li>
+
+
+                <li><button style="margin-left:10px;margin-bottom:10px;border-radius:20px;background-color: #82B440;border: none;margin-top: 20px;width: 100px; height: 30px"><span style="color:white;font-size:15px">Logout</span></button> </li>
+            </ul>
+            <nav>
+    </header>
+    <h3>
+
+    </h3><br>
+    <div class="admin-edit-food ">
+
+        <form method="POST" action="{{url_for('menu.update_menu_items',id=item.id)}}">
+
+            <!--Food Name-->
+            <div class="fields">
+                <label for="title">Food Name:</label><br>
+                <input value="{{item.food_name}}" type="text" name="food_name">
+            </div>
+            <!--Description-->
+            <div class="fields">
+                <label for="description">Food Description:</label><br>
+                <input name="food_description" value="{{item.food_description}}" type="text">
+            </div>
+            <!--Price-->
+            <div class="fields">
+                <label for="price">Food Price:</label><br>
+                <input name="food_price" value="{{item.food_price}}" type="number">
+            </div>
+
+            <!--Quantity-->
+            <div class="fields">
+                <label for="qty">Food Quantity:</label><br>
+                <input name="food_stock_quantity" value="{{item.food_stock_quantity}}" type="text">
+            </div>
+            <!--Image Url-->
+            <div class="fields">
+                <label for="url">Food Image Url:</label><br>
+                <input name="image_url" value="{{item.image_url}}" type="text">
+            </div>
+            <br>
+            <!--Login button-->
+            <div style="padding:20px;margin-top:20px">
+
+                <button type="submit" class="login-btn">Update</button>
+
+            </div>
+
+        </form>
+
+
+
+    </div>
+
+    </footer>
+    <!-- Footer -->
+
+    <!-- JavaScript Bundle with Popper -->
+    <!-- <script src="https://kit.fontawesome.com/0000000000.js" crossorigin="anonymous"></script>-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+
+
+</html>

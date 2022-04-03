@@ -1,0 +1,124 @@
+<h3>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Admin Update Food Order</title>
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <link rel="stylesheet" href="../static/styles/base.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+
+    <body>
+
+        <header id="header">
+
+            <!--Navbar-->
+            <nav>
+                <ul>
+
+                    <li><a class="active" href="./home.html"><span style="color:#8EC039">Home</span></a></li>
+                    <li><a href="./all-menu-items.html">Menu</a></li>
+                    <li><a href="./admin-dashboard.html">Admin</a></li>
+                    <li><a href="./cart.html"><i class=" fa fa-shopping-cart" style="color:white"></i></a></li>
+
+
+                    <li><a href="./user-login.html">Login</a></li>
+
+
+                    <li><button style="margin-left:10px;margin-bottom:10px;border-radius:20px;background-color: #82B440;border: none;margin-top: 20px;width: 100px; height: 30px"><span style="color:white;font-size:15px">Logout</span></button> </li>
+                </ul>
+                <nav>
+        </header>
+</h3>
+
+<br>
+<div class="admin-edit-food ">
+
+    <form method="POST" action="{{url_for('orders.update_menu_orders',id=order.id)}}">
+
+        <!--User Id-->
+        <div class="fields">
+            <label for="title">User Id:</label><br>
+            <input value="{{order.user_id}}" type="number" name="food_name">
+        </div>
+
+        <!--Food Id-->
+        <div class="fields">
+            <label for="description">Food Id:</label><br>
+            <input name="food_description" value="{{order.id}}" type="number">
+        </div>
+
+
+        <!--Quantity-->
+        <div class="fields">
+            <label for="qty">Food Quantity:</label><br>
+            <input name="quantity" value="{{order.quantity}}" type="text">
+        </div>
+
+        <!--Order status-->
+        <div class="fields">
+            <label for="url">Order Status:</label><br>
+            <input name="status" value="{{order.status}}" type="text">
+        </div>
+        <br>
+        <!--Login button-->
+        <div style="padding:20px;margin-top:20px">
+
+            <button type="submit" class="login-btn">Update Order</button>
+
+        </div>
+
+    </form>
+
+
+
+</div>
+<!-- Footer -->
+<footer>
+
+
+    <div style="display: flex; flex-direction: column">
+        <div style=" display: flex;flex-direction: row; justify-content: space-evenly; ">
+
+
+            <a href="https://www.facebook.com/gorretgolden">
+                <img src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png" style="width: 40px;height:40px">
+            </a>
+            <a href="https://www.facebook.com/gorretgolden">
+                <img src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png" style="width: 40px;height:40px">
+            </a>
+
+
+
+            <a href="https://www.linkedin.com/">
+                <img src="https://cdn.iconscout.com/icon/free/png-256/linkedin-3691226-3073746.png" style="width: 40px;height:40px">
+
+            </a>
+
+
+
+
+
+        </div>
+        <div class="footer-copyright text-center ">© 2022 Copyright reserved Golden Restaurant Social media links
+        </div>
+        <br>
+    </div>
+    <br/>
+
+
+</footer>
+<!-- Footer -->
+
+<!-- JavaScript Bundle with Popper -->
+<!-- <script src="https://kit.fontawesome.com/0000000000.js" crossorigin="anonymous"></script>-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+
+
+</html>

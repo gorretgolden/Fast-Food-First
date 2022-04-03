@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Registration Page</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link rel="stylesheet" href="../static/styles/base.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <header id="header">
+
+        <!--Navbar-->
+        <nav>
+            <ul>
+
+                <li><a class="active" href="./home.html"><span style="color:#8EC039">Home</span></a></li>
+                <li><a href="./all-menu-items.html">Menu</a></li>
+                <li><a href="./admin-dashboard.html">Admin</a></li>
+                <li><a href="./cart.html"><i class=" fa fa-shopping-cart" style="color:white"></i></a></li>
+
+
+                <li><a href="./user-login.html">Login</a></li>
+
+
+                <li><button style="margin-left:10px;margin-bottom:10px;border-radius:20px;background-color: #82B440;border: none;margin-top: 20px;width: 100px; height: 30px"><span style="color:white;font-size:15px">Logout</span></button> </li>
+            </ul>
+            <nav>
+    </header>
+
+    <div  >
+<br/>
+<br/>
+        <form class="user-sign-up-form " action="#" method="POST">
+
+            <div class="container">
+                <h2>Register Form</h2>
+                <p>Please fill in this form to create an account.</p>
+                <hr />
+                <!--Username-->
+                <div style=" margin-top: 20px; margin-bottom: 20px;">
+                    <label for="email"><b>UserName:</b></label>
+                    <input type="text" placeholder="Enter name" name="username" id="name" required />
+                </div>
+
+                <!--Email-->
+                <div>
+                    <label for="email"><b>Email:</b></label>
+                    <input type="email" placeholder="Enter Email" name="email" id="email" required />
+                </div>
+                <br/>
+                <!--Phone Number-->
+                <div>
+                    <label for="contact"><b>Phone Number:</b></label>
+                    <input type="number" placeholder="Enter phone number" name="phone_number" id="phone" required />
+                </div>
+
+                <!--User Address-->
+                <div>
+                    <label for="address"><b>User Address:</b></label>
+                    <input type="text" placeholder="Enter your address" name="user_address" id="address" required />
+                </div>
+                <br>
+                <!--Password 1-->
+                <div>
+                    <label for="password"><b>Password:</b></label>
+                    <input type="password" placeholder="Enter your Password" name="user_password" id="password" required />
+                </div>
+                <br>
+                <!--Password 2-->
+                <div>
+                    <label for="psw-repeat"><b>Repeat Password:</b></label>
+                    <input type="password" placeholder="Repeat Password" name="password2" id="password-repeat" required />
+                    <br>
+                    <hr />
+                </div>
+                <!--terms and policies-->
+                <div class="policies">
+
+                </div>
+
+                <button type="submit" class="register-btn">Register</button>
+
+            </div>
+        </form>
+        <br/>
+    </div>
+
+    <div class="text-to-auth">
+        <p><a href="{{ url_for('auth.login_user') }}">Already have an account? |  Login</a>.</p>
+    </div>
+    <br/>
+    <br/>
+    <!-- Footer -->
+    <footer>
+
+
+        <div style="display: flex; flex-direction: column">
+            <div style=" display: flex;flex-direction: row; justify-content: space-evenly; ">
+
+
+                <a href="https://www.facebook.com/gorretgolden">
+                    <img src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png" style="width: 40px;height:40px">
+                </a>
+                <a href="https://www.facebook.com/gorretgolden">
+                    <img src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png" style="width: 40px;height:40px">
+                </a>
+
+
+
+                <a href="https://www.linkedin.com/">
+                    <img src="https://cdn.iconscout.com/icon/free/png-256/linkedin-3691226-3073746.png" style="width: 40px;height:40px">
+
+                </a>
+
+
+
+
+
+            </div>
+            <div class="footer-copyright text-center ">© 2022 Copyright reserved Golden Restaurant Social media links
+            </div>
+            <br>
+        </div>
+        <br/>
+
+
+    </footer>
+    <!-- Footer -->
+
+    <!-- JavaScript Bundle with Popper -->
+    <!-- <script src="https://kit.fontawesome.com/0000000000.js" crossorigin="anonymous"></script>-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+
+
+</html>

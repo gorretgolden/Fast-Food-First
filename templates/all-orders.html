@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Home</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <link rel="stylesheet" href="../static/styles/base.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <header id="header">
+
+        <!--Navbar-->
+        <nav>
+            <ul>
+
+                <li><a class="active" href="./home.html"><span style="color:#8EC039">Home</span></a></li>
+                <li><a href="./all-menu-items.html">Menu</a></li>
+                <li><a href="./admin-dashboard.html">Admin</a></li>
+                <li><a href="./cart.html"><i class=" fa fa-shopping-cart" style="color:white"></i></a></li>
+
+
+                <li><a href="./user-login.html">Login</a></li>
+
+
+                <li><button style="margin-left:10px;margin-bottom:10px;border-radius:20px;background-color: #82B440;border: none;margin-top: 20px;width: 100px; height: 30px"><span style="color:white;font-size:15px">Logout</span></button> </li>
+            </ul>
+            <nav>
+    </header>
+    <div style="margin-bottom:50px;margin-top:50px;margin-left:500px;display:flex;flex-direction:row;align-content:center">
+        <p>Customer Orders</p>
+
+
+    </diV>
+
+
+
+    <div class="table">
+        <table>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer ID</th>
+                <th>Food ID</th>
+                <th>Order Quantity</th>
+                <th>Date of Order</th>
+                <th>Order Status</th>
+                <th>View Order</th>
+                <th>Delete Order</th>
+                <th>Update</th>
+
+            </tr>
+
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.user_id }} </td>
+                <td>{{order.food_id }}</td>
+                <td>{{order.quantity }}</td>
+                <td>{{order.date_created}}</td>
+                <td>{{order.status}}</td>
+                <td><button class="btn-table-delete">View</button>
+                    <td><button class="btn-table-delete">Delete</button>
+                        <td><button class="btn-table-update">Update</button></td>
+
+            </tr>
+
+        </table>
+    </div>
