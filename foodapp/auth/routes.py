@@ -62,22 +62,22 @@ def register_user():
   return jsonify({'error':'wrong credentials'}) 
 
 
-@auth.route('/login', methods= ['POST','GET'])
+@auth.route('/login', methods= ['POST'])
 
 def login_user():
       
       if request.method == "POST":
-          data = request.form  
-          email = data["email"]
-          password = data['user_password']
           
+      #     email = request.json["email"]
+      #     password = request.json['user_password']
+          data = request.get_json()
           #check if email exits
-          cur.execute('SELECT * FROM users WHERE email = %(email)s',{'email':email})
+          cur.execute('SELECT * FROM users WHERE email = %(email)s',{'email':data['email']})
           user = cur.fetchone()
           user_id = user['id']
           if user:
                 #check if userpassword matches the sha password in db
-                password_check = check_password_hash(user['user_password'],password)
+                password_check = check_password_hash(user['user_password'],data['user_password'])
                 print(password_check)
                 if password_check:
                       #create refresh and acces tokens
@@ -89,7 +89,7 @@ def login_user():
                   #     flash('You logged in successfully!','success')
                       #return redirect(url_for('main.home'))
                   #     cur.execute(" UPDATE users SET access_token = %s WHERE id = %s  ", (access_token,user_id))
-                      cur.execute("UPDATE users SET access_token = %(access_token)s  WHERE id = %(id)s", {'access_token':access_token,'id':user_id})
+                    #  cur.execute("UPDATE users SET access_token = %(access_token)s  WHERE id = %(id)s", {'access_token':access_token,'id':user_id})
                       return jsonify({'message':" You logged in successfully!",'access_token':access_token,'refresh_token':refresh_token,'user_email':user['email'],'user_id':user['id']})
                 else:
                        return jsonify({"eror":"Wrong password"})

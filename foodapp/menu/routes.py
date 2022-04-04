@@ -27,30 +27,31 @@ def single_menu_item(id):
     return jsonify({'id':data['id'],'name':data['food_name'],'price':data['food_price'],'description':data['food_description'],'stock':data['food_stock_quantity'],'image':data['image_url']})
 
 #creating menu-item
-@menu.route("/create", methods=["POST"])
+@menu.route("/create", methods=["POST","GET"])
 
 def new_menu_item():
-    # if request.method == "POST":
-        food_name = request.json['food_name']
-        food_description = request.json['food_description']
-        food_price = request.json['food_price']
-        image_url = request.json['image_url']
-        food_stock_quantity = request.json['food_stock_quantity']
+    if request.method == "POST":
+        data = request.get_json()
+        # food_name = request.form['food_name']
+        # food_description = request.form['food_description']
+        # food_price = request.form['food_price']
+        # image_url = request.form['image_url']
+        # food_stock_quantity = request.form['food_stock_quantity']
        
         #checking if food name exists
-        cur.execute('SELECT * FROM menu_items WHERE food_name = %(food_name)s',{'food_name':food_name})
+        cur.execute('SELECT * FROM menu_items WHERE food_name = %(food_name)s',{'food_name':data['food_name']})
         foodname = cur.fetchone()
         if foodname:
-            return jsonify({'error':"Food name already exists"})
+            return jsonify({'error':"Food name already exists"}),409
         else:
 
           #inserting values into the menu_table
-          cur.execute("INSERT INTO menu_items (food_name,food_description,food_price,image_url,food_stock_quantity) VALUES (%s,%s,%s,%s,%s)", (food_name,food_description,food_price,image_url,food_stock_quantity))
+          cur.execute("INSERT INTO menu_items (food_name,food_description,food_price,image_url,food_stock_quantity) VALUES (%s,%s,%s,%s,%s)", (data['food_name'],data['food_description'],data['food_price'],data['image_url'],data['food_stock_quantity']))
           conn.commit()
         # flash("New menu item added successfully!!",'success')
         # return redirect(url_for('admin.admin_dashboard'))
         #return render_template('admin-dashboard.html')
-        return jsonify({'message':'new food item created','food_name':food_name,'food_price':food_price,'food_description':food_description,'stock_quantity':food_stock_quantity,'image':image_url})
+        return jsonify({'message':'new food item created','food_name':data['food_name'],'food_price':data['food_price'],'food_description':data['food_description'],'stock_quantity':data['food_stock_quantity'],'image':data['image_url']}),200
 
 
 #view menu-item

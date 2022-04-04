@@ -25,7 +25,7 @@
         #             """, (int(quantity),("SELECT food_price  FROM menu_items WHERE id = %(foodId)",({'id':food_id}))))  
 # @main.route('/add', methods=['POST','GET'])
 # def add_food_to_cart():
-       
+   #b6e565     bfde8a
 #    try:
 #        _quantity = int(request.form['quantity'])
 #        id  = request.form['id']
